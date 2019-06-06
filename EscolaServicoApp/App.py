@@ -136,7 +136,7 @@ def getCursos():
     return("Executado!", 200)
 
 @app.route("/cursos/<int:id>", methods=['GET'])
-def getCursosByID():
+def getCursosByID(id):
     conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
 
@@ -191,7 +191,7 @@ def getTurmas():
     return("Executado!", 200)
 
 @app.route("/turmas/<int:id>", methods=['GET'])
-def getTurmasByID():
+def getTurmasByID(id):
     conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
 
@@ -246,7 +246,7 @@ def getDisciplinas():
     return("Executado!", 200)
 
 @app.route("/disciplinas/<int:id>", methods=['GET'])
-def getDisciplinasByID():
+def getDisciplinasByID(id):
     conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
 
@@ -274,7 +274,7 @@ def setDisciplina():
     cursor.execute("""
         INSERT INTO tb_disciplina(nome)
         VALUES(?);
-    """, (nome))
+    """, (nome, ))
 
     conn.commit()
     conn.close()
