@@ -1,30 +1,29 @@
 import sqlite3
 
-conn = sqlite3.connect('escola.db')
+conn = sqlite3.connect('EscolaServicoApp.db')
 
 cursor = conn.cursor()
+
+cursor.execute("""
+    CREATE TABLE tb_escola(
+        id_escola INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        nome VARCHAR(45) NOT NULL,
+        logradouro VARCHAR(70) NOT NULL,
+        cidade VARCHAR(45) NOT NULL
+    );
+""")
+
+print('table "tb_escola" created successfully =)')
 
 cursor.execute("""
     CREATE TABLE tb_aluno(
         id_aluno INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         nome VARCHAR(45) NOT NULL,
-        matricula VARCHAR(12) NOT NULL,
-        cpf VARCHAR(11) NOT NULL,
-        nascimento DATE NOT NULL
-    );
-""")
-
-print('table "tb_student" created successfully =)')
-
-cursor.execute("""
-    CREATE TABLE tb_course(
-        id_curso INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        nome VARCHAR(45) NOT NULL,
         turno VARCHAR(1) NOT NULL
     );
 """)
 
-print('table "tb_course" created successfully =)')
+print('table "tb_aluno" created successfully =)')
 
 cursor.execute("""
     CREATE TABLE tb_class(
