@@ -86,7 +86,7 @@ def updateEscola(id):
     cidade = escola['cidade']
     print(cidade)
 
-    conn = sqlite3.connect(database)
+    conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -199,7 +199,7 @@ def updateAluno(id):
     nascimento = aluno['nascimento']
     print(nascimento)
 
-    conn = sqlite3.connect(database)
+    conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -301,7 +301,7 @@ def updateCurso(id):
     turno = curso['turno']
     print(turno)
 
-    conn = sqlite3.connect(database)
+    conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -403,7 +403,7 @@ def updateTurma(id):
     curso = turma['curso']
     print(curso)
 
-    conn = sqlite3.connect(database)
+    conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -499,7 +499,7 @@ def updateDisciplina(id):
     nome = disciplina['nome']
     print(nome)
 
-    conn = sqlite3.connect(database)
+    conn = sqlite3.connect('IFPB.db')
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
