@@ -1,11 +1,24 @@
 from flask import Flask, request, jsonify
 import sqlite3
+import logging
 
 app = Flask(__name__)
 
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+handler = logging.FileHandler("escolaapp.log")
+handler.setFormatter(formatter)
+
+logger = app.logger
+logger.addHandler(handler)
+logger.setLevel(logging.INFO)
+
+databaseName = 'IFPB.db'
+
 @app.route("/escolas", methods=['GET'])
 def getEscolas():
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando escolas")
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -28,7 +41,9 @@ def getEscolas():
 
 @app.route("/escolas/<int:id>", methods=['GET'])
 def getEscolasByID(id):
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando escola pelo ID: %s" %(id))
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -51,7 +66,8 @@ def getEscolasByID(id):
 
 @app.route("/escola", methods=['POST'])
 def setEscola():
-    print('Cadastrando a escola')
+    logger.info('Cadastrando a escola')
+
     escola = request.get_json()
     nome = escola["nome"]
     print(nome)
@@ -60,7 +76,7 @@ def setEscola():
     cidade = escola["cidade"]
     print(cidade)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO tb_escola(nome, logradouro, cidade)
@@ -77,7 +93,8 @@ def setEscola():
 
 @app.route("/escola/<int:id>", methods=['PUT'])
 def updateEscola(id):
-    print ('Atualizando a escola')
+    logger.info('Atualizando a escola')
+
     escola = request.get_json()
     nome = escola['nome']
     print(nome)
@@ -86,7 +103,7 @@ def updateEscola(id):
     cidade = escola['cidade']
     print(cidade)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -111,7 +128,9 @@ def updateEscola(id):
 
 @app.route("/alunos", methods=['GET'])
 def getAlunos():
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando os alunos")
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -136,7 +155,9 @@ def getAlunos():
 
 @app.route("/alunos/<int:id>", methods=['GET'])
 def getAlunosByID(id):
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando o aluno pelo ID: %s" %(id))
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -160,7 +181,8 @@ def getAlunosByID(id):
 
 @app.route("/aluno", methods=['POST'])
 def setAluno():
-    print('Cadastrando o aluno')
+    logger.info('Cadastrando o aluno')
+
     aluno = request.get_json()
     nome = aluno["nome"]
     print(nome)
@@ -171,7 +193,7 @@ def setAluno():
     nascimento = aluno["nascimento"]
     print(nascimento)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO tb_aluno(nome, matricula, cpf, nascimento)
@@ -188,7 +210,8 @@ def setAluno():
 
 @app.route("/aluno/<int:id>", methods=['PUT'])
 def updateAluno(id):
-    print ('Atualizando o aluno')
+    logger.info('Atualizando o aluno')
+
     aluno = request.get_json()
     nome = aluno['nome']
     print(nome)
@@ -199,7 +222,7 @@ def updateAluno(id):
     nascimento = aluno['nascimento']
     print(nascimento)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -225,7 +248,9 @@ def updateAluno(id):
 
 @app.route("/cursos", methods=['GET'])
 def getCursos():
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando os cursos")
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -248,7 +273,9 @@ def getCursos():
 
 @app.route("/cursos/<int:id>", methods=['GET'])
 def getCursosByID(id):
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando o curso pelo id: %s" %(id))
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -270,14 +297,15 @@ def getCursosByID(id):
 
 @app.route("/curso", methods=['POST'])
 def setCurso():
-    print('Cadastrando o curso')
+    logger.info('Cadastrando o curso')
+
     curso = request.get_json()
     nome = curso["nome"]
     print(nome)
     turno = curso["turno"]
     print(turno)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO tb_curso(nome, turno)
@@ -294,14 +322,15 @@ def setCurso():
 
 @app.route("/curso/<int:id>", methods=['PUT'])
 def updateCurso(id):
-    print ("Atualizando o curso")
+    logger.info("Atualizando o curso")
+
     curso = request.get_json()
     nome = curso['nome']
     print(nome)
     turno = curso['turno']
     print(turno)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -327,7 +356,9 @@ def updateCurso(id):
 
 @app.route("/turmas", methods=['GET'])
 def getTurmas():
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando as turmas")
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -350,7 +381,9 @@ def getTurmas():
 
 @app.route("/turmas/<int:id>", methods=['GET'])
 def getTurmasByID(id):
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando a turma pelo ID: %s" %(id))
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -372,14 +405,15 @@ def getTurmasByID(id):
 
 @app.route("/turma", methods=['POST'])
 def setTurma():
+    logger.info('Cadastrando a turma')
+
     turma = request.get_json()
-    print('Cadastrando a turma')
     nome = turma["nome"]
     print(nome)
     curso = turma["curso"]
     print(curso)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO tb_turma(nome, curso)
@@ -396,14 +430,15 @@ def setTurma():
 
 @app.route("/turma/<int:id>", methods=['PUT'])
 def updateTurma(id):
-    print ("Atualizando a turma")
+    logger.info("Atualizando a turma")
+
     turma = request.get_json()
     nome = turma['nome']
     print(nome)
     curso = turma['curso']
     print(curso)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -429,7 +464,9 @@ def updateTurma(id):
 
 @app.route("/disciplinas", methods=['GET'])
 def getDisciplinas():
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando as disciplinas")
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -451,7 +488,9 @@ def getDisciplinas():
 
 @app.route("/disciplinas/<int:id>", methods=['GET'])
 def getDisciplinasByID(id):
-    conn = sqlite3.connect('IFPB.db')
+    logger.info("Listando a disciplina pelo id: %s" %(id))
+
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
 
     cursor.execute("""
@@ -472,12 +511,13 @@ def getDisciplinasByID(id):
 
 @app.route("/disciplina", methods=['POST'])
 def setDisciplina():
-    print('Cadastrando a disciplina')
+    logger.info('Cadastrando a disciplina')
+
     disciplina = request.get_json()
     nome = disciplina["nome"]
     print(nome)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         INSERT INTO tb_disciplina(nome)
@@ -494,12 +534,13 @@ def setDisciplina():
 
 @app.route("/disciplina/<int:id>", methods=['PUT'])
 def updateDisciplina(id):
-    print ("Atualizando a disciplina")
+    logger.info("Atualizando a disciplina")
+
     disciplina = request.get_json()
     nome = disciplina['nome']
     print(nome)
 
-    conn = sqlite3.connect('IFPB.db')
+    conn = sqlite3.connect(databaseName)
     cursor = conn.cursor()
     cursor.execute("""
         SELECT *
@@ -524,4 +565,3 @@ def updateDisciplina(id):
 
 if(__name__ == '__main__'):
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
-
