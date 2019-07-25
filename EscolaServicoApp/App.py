@@ -18,24 +18,28 @@ databaseName = 'IFPB.db'
 def getEscolas():
     logger.info("Listando escolas")
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT * FROM tb_escola;
-    """)
+        cursor.execute("""
+            SELECT * FROM tb_escola;
+        """)
 
-    escolas = []
-    for linha in cursor.fetchall():
-        escola = {
-            "id_escola":linha[0],
-            "nome":linha[1],
-            "logradouro":linha[2],
-            "cidade":linha[3]
-        }
-        escolas.append(escola)
+        escolas = []
+        for linha in cursor.fetchall():
+            escola = {
+                "id_escola":linha[0],
+                "nome":linha[1],
+                "logradouro":linha[2],
+                "cidade":linha[3]
+            }
+            escolas.append(escola)
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(escolas)
 
@@ -43,24 +47,28 @@ def getEscolas():
 def getEscolasByID(id):
     logger.info("Listando escola pelo ID: %s" %(id))
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_escola
-        WHERE id_escola = ?;
-    """, (id, ))
+        cursor.execute("""
+            SELECT *
+            FROM tb_escola
+            WHERE id_escola = ?;
+        """, (id, ))
 
-    linha = cursor.fetchone()
-    escola = {
-        "id_escola":linha[0],
-        "nome":linha[1],
-        "logradouro":linha[2],
-        "cidade":linha[3]
-    }
+        linha = cursor.fetchone()
+        escola = {
+            "id_escola":linha[0],
+            "nome":linha[1],
+            "logradouro":linha[2],
+            "cidade":linha[3]
+        }
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(escola)
 
@@ -68,26 +76,30 @@ def getEscolasByID(id):
 def setEscola():
     logger.info('Cadastrando a escola')
 
-    escola = request.get_json()
-    nome = escola["nome"]
-    print(nome)
-    logradouro = escola["logradouro"]
-    print(logradouro)
-    cidade = escola["cidade"]
-    print(cidade)
+    try:
+        escola = request.get_json()
+        nome = escola["nome"]
+        print(nome)
+        logradouro = escola["logradouro"]
+        print(logradouro)
+        cidade = escola["cidade"]
+        print(cidade)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO tb_escola(nome, logradouro, cidade)
-        VALUES(?, ?, ?);
-    """, (nome, logradouro, cidade))
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO tb_escola(nome, logradouro, cidade)
+            VALUES(?, ?, ?);
+        """, (nome, logradouro, cidade))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
-    id = cursor.lastrowid
-    escola['id'] = id
+        id = cursor.lastrowid
+        escola['id'] = id
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(escola)
 
@@ -95,34 +107,38 @@ def setEscola():
 def updateEscola(id):
     logger.info('Atualizando a escola')
 
-    escola = request.get_json()
-    nome = escola['nome']
-    print(nome)
-    logradouro = escola['logradouro']
-    print(logradouro)
-    cidade = escola['cidade']
-    print(cidade)
+    try:
+        escola = request.get_json()
+        nome = escola['nome']
+        print(nome)
+        logradouro = escola['logradouro']
+        print(logradouro)
+        cidade = escola['cidade']
+        print(cidade)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT *
-        FROM tb_escola
-        WHERE id_escola = ?;
-        """, (id,))
-
-    tab = cursor.fetchone()
-
-    if (tab is not None):
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
         cursor.execute("""
-            UPDATE tb_escola
-            SET nome=?, logradouro=?, cidade=?
-            """ (nome,logradouro, cidade, id))
-        conn.commit()
-    else:
-        print ("Escolher o recurso '/escola' :)")
+            SELECT *
+            FROM tb_escola
+            WHERE id_escola = ?;
+            """, (id,))
 
-    conn.close()
+        tab = cursor.fetchone()
+
+        if (tab is not None):
+            cursor.execute("""
+                UPDATE tb_escola
+                SET nome=?, logradouro=?, cidade=?
+                """ (nome,logradouro, cidade, id))
+            conn.commit()
+        else:
+            print ("Escolher o recurso '/escola' :)")
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(escola)
 
@@ -130,26 +146,29 @@ def updateEscola(id):
 def getAlunos():
     logger.info("Listando os alunos")
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_aluno;
-    """)
+        cursor.execute("""
+            SELECT *
+            FROM tb_aluno;
+        """)
 
-    alunos = []
-    for linha in cursor.fetchall():
-        aluno = {
-            "id_aluno":linha[0],
-            "nome":linha[1],
-            "matricula":linha[2],
-            "cpf":linha[3],
-            "nascimento":linha[4]
-        }
-        alunos.append(aluno)
+        alunos = []
+        for linha in cursor.fetchall():
+            aluno = {
+                "id_aluno":linha[0],
+                "nome":linha[1],
+                "matricula":linha[2],
+                "cpf":linha[3],
+                "nascimento":linha[4]
+            }
+            alunos.append(aluno)
 
-    conn.close()
+        conn.close()
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(alunos)
 
@@ -157,25 +176,29 @@ def getAlunos():
 def getAlunosByID(id):
     logger.info("Listando o aluno pelo ID: %s" %(id))
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_aluno
-        WHERE id_aluno = ?;
-    """,(id, ))
+        cursor.execute("""
+            SELECT *
+            FROM tb_aluno
+            WHERE id_aluno = ?;
+        """,(id, ))
 
-    linha = cursor.fecthone()
-    aluno = {
-        "id_aluno":linha[0],
-        "nome":linha[1],
-        "matricula":linha[2],
-        "cpf":linha[3],
-        "nascimento":linha[4]
-    }
+        linha = cursor.fecthone()
+        aluno = {
+            "id_aluno":linha[0],
+            "nome":linha[1],
+            "matricula":linha[2],
+            "cpf":linha[3],
+            "nascimento":linha[4]
+        }
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(aluno)
 
@@ -183,28 +206,32 @@ def getAlunosByID(id):
 def setAluno():
     logger.info('Cadastrando o aluno')
 
-    aluno = request.get_json()
-    nome = aluno["nome"]
-    print(nome)
-    matricula = aluno["matricula"]
-    print(matricula)
-    cpf = aluno["cpf"]
-    print(cpf)
-    nascimento = aluno["nascimento"]
-    print(nascimento)
+    try:
+        aluno = request.get_json()
+        nome = aluno["nome"]
+        print(nome)
+        matricula = aluno["matricula"]
+        print(matricula)
+        cpf = aluno["cpf"]
+        print(cpf)
+        nascimento = aluno["nascimento"]
+        print(nascimento)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO tb_aluno(nome, matricula, cpf, nascimento)
-        VALUES(?, ?, ?, ?);
-    """, (nome, matricula, cpf, nascimento))
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO tb_aluno(nome, matricula, cpf, nascimento)
+            VALUES(?, ?, ?, ?);
+        """, (nome, matricula, cpf, nascimento))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
-    id = cursor.lastrowid
-    aluno['id'] = id
+        id = cursor.lastrowid
+        aluno['id'] = id
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(aluno)
 
@@ -212,37 +239,41 @@ def setAluno():
 def updateAluno(id):
     logger.info('Atualizando o aluno')
 
-    aluno = request.get_json()
-    nome = aluno['nome']
-    print(nome)
-    matricula = aluno['matricula']
-    print(matricula)
-    cpf = aluno['cpf']
-    print(cpf)
-    nascimento = aluno['nascimento']
-    print(nascimento)
+    try:
+        aluno = request.get_json()
+        nome = aluno['nome']
+        print(nome)
+        matricula = aluno['matricula']
+        print(matricula)
+        cpf = aluno['cpf']
+        print(cpf)
+        nascimento = aluno['nascimento']
+        print(nascimento)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT *
-        FROM tb_aluno
-        WHERE id_aluno = ?;
-        """, (id,))
-
-    tab = cursor.fetchone()
-
-    if (tab is not None):
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
         cursor.execute("""
-            UPDATE tb_aluno
-            SET nome=?, matricula=?, cpf=?,nascimento=?
-            WHERE id_aluno = ?
-            """, (nome, matricula, cpf, nascimento,id))
-        conn.commit()
-    else:
-        print ("Escolher o recurso '/aluno' :)")
+            SELECT *
+            FROM tb_aluno
+            WHERE id_aluno = ?;
+            """, (id,))
 
-    conn.close()
+        tab = cursor.fetchone()
+
+        if (tab is not None):
+            cursor.execute("""
+                UPDATE tb_aluno
+                SET nome=?, matricula=?, cpf=?,nascimento=?
+                WHERE id_aluno = ?
+                """, (nome, matricula, cpf, nascimento,id))
+            conn.commit()
+        else:
+            print ("Escolher o recurso '/aluno' :)")
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(aluno)
 
@@ -250,24 +281,28 @@ def updateAluno(id):
 def getCursos():
     logger.info("Listando os cursos")
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_curso;
-    """)
+        cursor.execute("""
+            SELECT *
+            FROM tb_curso;
+        """)
 
-    cursos = []
-    for linha in cursor.fetchall():
-        curso = {
-            "id_curso":linha[0],
-            "nome":linha[1],
-            "turno":linha[2]
-        }
-        cursos.append(curso)
+        cursos = []
+        for linha in cursor.fetchall():
+            curso = {
+                "id_curso":linha[0],
+                "nome":linha[1],
+                "turno":linha[2]
+            }
+            cursos.append(curso)
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(cursos)
 
@@ -275,23 +310,27 @@ def getCursos():
 def getCursosByID(id):
     logger.info("Listando o curso pelo id: %s" %(id))
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_curso
-        WHERE id_curso = ?;
-    """, (id, ))
+        cursor.execute("""
+            SELECT *
+            FROM tb_curso
+            WHERE id_curso = ?;
+        """, (id, ))
 
-    linha = cursor.fecthone()
-    curso = {
-        "id_curso":linha[0],
-        "nome":linha[1],
-        "turno":linha[2]
-    }
+        linha = cursor.fecthone()
+        curso = {
+            "id_curso":linha[0],
+            "nome":linha[1],
+            "turno":linha[2]
+        }
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(curso)
 
@@ -299,24 +338,28 @@ def getCursosByID(id):
 def setCurso():
     logger.info('Cadastrando o curso')
 
-    curso = request.get_json()
-    nome = curso["nome"]
-    print(nome)
-    turno = curso["turno"]
-    print(turno)
+    try:
+        curso = request.get_json()
+        nome = curso["nome"]
+        print(nome)
+        turno = curso["turno"]
+        print(turno)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO tb_curso(nome, turno)
-        VALUES(?, ?);
-    """, (nome, turno))
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO tb_curso(nome, turno)
+            VALUES(?, ?);
+        """, (nome, turno))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
-    id = cursor.lastrowid
-    curso['id'] = id
+        id = cursor.lastrowid
+        curso['id'] = id
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(curso)
 
@@ -324,33 +367,37 @@ def setCurso():
 def updateCurso(id):
     logger.info("Atualizando o curso")
 
-    curso = request.get_json()
-    nome = curso['nome']
-    print(nome)
-    turno = curso['turno']
-    print(turno)
+    try:
+        curso = request.get_json()
+        nome = curso['nome']
+        print(nome)
+        turno = curso['turno']
+        print(turno)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT *
-        FROM tb_curso
-        WHERE id_curso = ?;
-        """, (id,))
-
-    tab = cursor.fetchone()
-
-    if (tab is not None):
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
         cursor.execute("""
-            UPDATE tb_curso
-            SET nome=?, turno=?
-            WHERE id_curso = ?
-            """, (nome, turno, id))
-        conn.commit()
-    else:
-        print ("Escolher o recurso '/curso' :)")
+            SELECT *
+            FROM tb_curso
+            WHERE id_curso = ?;
+            """, (id,))
 
-    conn.close()
+        tab = cursor.fetchone()
+
+        if (tab is not None):
+            cursor.execute("""
+                UPDATE tb_curso
+                SET nome=?, turno=?
+                WHERE id_curso = ?
+                """, (nome, turno, id))
+            conn.commit()
+        else:
+            print ("Escolher o recurso '/curso' :)")
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(curso)
 
@@ -358,24 +405,28 @@ def updateCurso(id):
 def getTurmas():
     logger.info("Listando as turmas")
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_turma;
-    """)
+        cursor.execute("""
+            SELECT *
+            FROM tb_turma;
+        """)
 
-    turmas = []
-    for linha in cursor.fetchall():
-        turma = {
-            "id_turma":linha[0],
-            "nome":linha[1],
-            "curso":linha[2]
-        }
-        turmas.append(turma)
+        turmas = []
+        for linha in cursor.fetchall():
+            turma = {
+                "id_turma":linha[0],
+                "nome":linha[1],
+                "curso":linha[2]
+            }
+            turmas.append(turma)
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(turmas)
 
@@ -383,23 +434,27 @@ def getTurmas():
 def getTurmasByID(id):
     logger.info("Listando a turma pelo ID: %s" %(id))
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_turma
-        WHERE id_turma = ?
-    """, (id, ))
+        cursor.execute("""
+            SELECT *
+            FROM tb_turma
+            WHERE id_turma = ?
+        """, (id, ))
 
-    linha = cursor.fetchone()
-    turma = {
-        "id_turma":linha[0],
-        "nome":linha[1],
-        "curso":linha[2]
-    }
+        linha = cursor.fetchone()
+        turma = {
+            "id_turma":linha[0],
+            "nome":linha[1],
+            "curso":linha[2]
+        }
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(turma)
 
@@ -407,24 +462,28 @@ def getTurmasByID(id):
 def setTurma():
     logger.info('Cadastrando a turma')
 
-    turma = request.get_json()
-    nome = turma["nome"]
-    print(nome)
-    curso = turma["curso"]
-    print(curso)
+    try:
+        turma = request.get_json()
+        nome = turma["nome"]
+        print(nome)
+        curso = turma["curso"]
+        print(curso)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO tb_turma(nome, curso)
-        VALUES(?, ?);
-    """, (nome, curso))
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO tb_turma(nome, curso)
+            VALUES(?, ?);
+        """, (nome, curso))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
-    id = cursor.lastrowid
-    turma["id"] = id
+        id = cursor.lastrowid
+        turma["id"] = id
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(turma)
 
@@ -432,33 +491,37 @@ def setTurma():
 def updateTurma(id):
     logger.info("Atualizando a turma")
 
-    turma = request.get_json()
-    nome = turma['nome']
-    print(nome)
-    curso = turma['curso']
-    print(curso)
+    try:
+        turma = request.get_json()
+        nome = turma['nome']
+        print(nome)
+        curso = turma['curso']
+        print(curso)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT *
-        FROM tb_turma
-        WHERE id_turma = ?;
-        """, (id,))
-
-    tab = cursor.fetchone()
-
-    if (tab is not None):
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
         cursor.execute("""
-            UPDATE tb_turma
-            SET nome=?, curso=?
-            WHERE id_disciplina = ?
-            """, (nome,curso, id))
-        conn.commit()
-    else:
-        print ("Escolher o recurso '/turma' :)")
+            SELECT *
+            FROM tb_turma
+            WHERE id_turma = ?;
+            """, (id,))
 
-    conn.close()
+        tab = cursor.fetchone()
+
+        if (tab is not None):
+            cursor.execute("""
+                UPDATE tb_turma
+                SET nome=?, curso=?
+                WHERE id_disciplina = ?
+                """, (nome,curso, id))
+            conn.commit()
+        else:
+            print ("Escolher o recurso '/turma' :)")
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(turma)
 
@@ -466,23 +529,27 @@ def updateTurma(id):
 def getDisciplinas():
     logger.info("Listando as disciplinas")
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_disciplina;
-    """)
+        cursor.execute("""
+            SELECT *
+            FROM tb_disciplina;
+        """)
 
-    disciplinas = []
-    for linha in cursor.fetchall():
-        disciplina = {
-            "id_disciplina":linha[0],
-            "nome":linha[1]
-        }
-        disciplinas.append(disciplina)
+        disciplinas = []
+        for linha in cursor.fetchall():
+            disciplina = {
+                "id_disciplina":linha[0],
+                "nome":linha[1]
+            }
+            disciplinas.append(disciplina)
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(disciplinas)
 
@@ -490,22 +557,26 @@ def getDisciplinas():
 def getDisciplinasByID(id):
     logger.info("Listando a disciplina pelo id: %s" %(id))
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
 
-    cursor.execute("""
-        SELECT *
-        FROM tb_disciplina
-        WHERE id_disciplina = ?
-    """, (id, ))
+        cursor.execute("""
+            SELECT *
+            FROM tb_disciplina
+            WHERE id_disciplina = ?
+        """, (id, ))
 
-    linha = cursor.fetchone()
-    disciplina = {
-        "id_disciplina":linha[0],
-        "nome":linha[1]
-    }
+        linha = cursor.fetchone()
+        disciplina = {
+            "id_disciplina":linha[0],
+            "nome":linha[1]
+        }
 
-    conn.close()
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(disciplina)
 
@@ -513,22 +584,26 @@ def getDisciplinasByID(id):
 def setDisciplina():
     logger.info('Cadastrando a disciplina')
 
-    disciplina = request.get_json()
-    nome = disciplina["nome"]
-    print(nome)
+    try:
+        disciplina = request.get_json()
+        nome = disciplina["nome"]
+        print(nome)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        INSERT INTO tb_disciplina(nome)
-        VALUES(?);
-    """, (nome, ))
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO tb_disciplina(nome)
+            VALUES(?);
+        """, (nome, ))
 
-    conn.commit()
-    conn.close()
+        conn.commit()
+        conn.close()
 
-    id = cursor.lastrowid
-    disciplina["id"] = id
+        id = cursor.lastrowid
+        disciplina["id"] = id
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(disciplina)
 
@@ -536,30 +611,34 @@ def setDisciplina():
 def updateDisciplina(id):
     logger.info("Atualizando a disciplina")
 
-    disciplina = request.get_json()
-    nome = disciplina['nome']
-    print(nome)
+    try:
+        disciplina = request.get_json()
+        nome = disciplina['nome']
+        print(nome)
 
-    conn = sqlite3.connect(databaseName)
-    cursor = conn.cursor()
-    cursor.execute("""
-        SELECT *
-        FROM tb_disciplina
-        WHERE id_disciplina = ?;
-        """, (id,))
-
-    tab = cursor.fetchone()
-    if (tab is not None):
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
         cursor.execute("""
-            UPDATE tb_disciplina
-            SET nome=?
-            WHERE id_disciplina = ?
-            """, (nome, id))
-        conn.commit()
-    else:
-        print ("Escolher o recurso '/disciplina' :)")
+            SELECT *
+            FROM tb_disciplina
+            WHERE id_disciplina = ?;
+            """, (id,))
 
-    conn.close()
+        tab = cursor.fetchone()
+        if (tab is not None):
+            cursor.execute("""
+                UPDATE tb_disciplina
+                SET nome=?
+                WHERE id_disciplina = ?
+                """, (nome, id))
+            conn.commit()
+        else:
+            print ("Escolher o recurso '/disciplina' :)")
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
 
     return jsonify(disciplina)
 
