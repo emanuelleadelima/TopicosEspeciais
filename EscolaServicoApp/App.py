@@ -1,16 +1,40 @@
 from flask import Flask, request, jsonify
+from flask_json_schema import JsonSchema, JsonValidationError
 import sqlite3
 import logging
 
 app = Flask(__name__)
 
-formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(le
+velname)s - %(message)s")
 handler = logging.FileHandler("escolaapp.log")
 handler.setFormatter(formatter)
 
 logger = app.logger
 logger.addHandler(handler)
 logger.setLevel(logging.INFO)
+
+#Validação
+schema = JsonSchema()
+schema.init_app(app)
+
+escola_schema = {}
+
+aluno_schema = {
+    'required': ['nome', 'matricula', 'cpf', 'nascimento'],
+    'properties': {
+        'nome': {'type': 'string'},
+        'matricula': {'type': 'string'},
+        'cpf': {'type': 'string'},
+        'nascimento': {'type': 'string'}
+    }
+}
+
+curso_schema = {}
+
+turma_schema = {}
+
+disciplina_schema = {}
 
 databaseName = 'IFPB.db'
 
@@ -203,10 +227,12 @@ def getAlunosByID(id):
     return jsonify(aluno)
 
 @app.route("/aluno", methods=['POST'])
+@schema.validate(aluno_schema)
 def setAluno():
     logger.info('Cadastrando o aluno')
 
     try:
+        #Recuperando o JSON
         aluno = request.get_json()
         nome = aluno["nome"]
         print(nome)
