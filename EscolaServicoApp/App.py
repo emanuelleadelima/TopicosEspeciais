@@ -18,7 +18,14 @@ logger.setLevel(logging.INFO)
 schema = JsonSchema()
 schema.init_app(app)
 
-escola_schema = {}
+escola_schema = {
+    'required': ['nome', 'logradouro', 'cidade'],
+    'properties': {
+        'nome': {'type': 'string'},
+        'logradouro': {'type': 'string'},
+        'cidade': {'type': 'string'}
+    }
+}
 
 aluno_schema = {
     'required': ['nome', 'matricula', 'cpf', 'nascimento'],
@@ -30,11 +37,28 @@ aluno_schema = {
     }
 }
 
-curso_schema = {}
+curso_schema = {
+    'required': ['nome','turno'],
+    'properties': {
+        'nome': {'type': 'string'},
+        'turno': {'type': 'string'}
+    }
+}
 
-turma_schema = {}
+turma_schema = {
+    'required': ['nome','curso'],
+    'properties': {
+        'nome': {'type': 'string'},
+        'curso': {'type': 'string'}
+    }
+}
 
-disciplina_schema = {}
+disciplina_schema = {
+    'required': ['nome'],
+    'properties': {
+        'nome': {'type': 'string'}
+    }
+}
 
 databaseName = 'IFPB.db'
 
@@ -97,6 +121,7 @@ def getEscolasByID(id):
     return jsonify(escola)
 
 @app.route("/escola", methods=['POST'])
+@schema.validate(escola_schema)
 def setEscola():
     logger.info('Cadastrando a escola')
 
@@ -128,6 +153,7 @@ def setEscola():
     return jsonify(escola)
 
 @app.route("/escola/<int:id>", methods=['PUT'])
+@schema.validate(escola_schema)
 def updateEscola(id):
     logger.info('Atualizando a escola')
 
@@ -262,6 +288,7 @@ def setAluno():
     return jsonify(aluno)
 
 @app.route("/aluno/<int:id>", methods=['PUT'])
+@schema.validate(aluno_schema)
 def updateAluno(id):
     logger.info('Atualizando o aluno')
 
@@ -361,6 +388,7 @@ def getCursosByID(id):
     return jsonify(curso)
 
 @app.route("/curso", methods=['POST'])
+@schema.validate(curso_schema)
 def setCurso():
     logger.info('Cadastrando o curso')
 
@@ -390,6 +418,7 @@ def setCurso():
     return jsonify(curso)
 
 @app.route("/curso/<int:id>", methods=['PUT'])
+@schema.validate(curso_schema)
 def updateCurso(id):
     logger.info("Atualizando o curso")
 
@@ -485,6 +514,7 @@ def getTurmasByID(id):
     return jsonify(turma)
 
 @app.route("/turma", methods=['POST'])
+@schema.validate(turma_schema)
 def setTurma():
     logger.info('Cadastrando a turma')
 
@@ -514,6 +544,7 @@ def setTurma():
     return jsonify(turma)
 
 @app.route("/turma/<int:id>", methods=['PUT'])
+@schema.validate(turma_schema)
 def updateTurma(id):
     logger.info("Atualizando a turma")
 
@@ -607,6 +638,7 @@ def getDisciplinasByID(id):
     return jsonify(disciplina)
 
 @app.route("/disciplina", methods=['POST'])
+@schema.validate(disciplina_schema)
 def setDisciplina():
     logger.info('Cadastrando a disciplina')
 
@@ -634,6 +666,7 @@ def setDisciplina():
     return jsonify(disciplina)
 
 @app.route("/disciplina/<int:id>", methods=['PUT'])
+@schema.validate(disciplina_schema)
 def updateDisciplina(id):
     logger.info("Atualizando a disciplina")
 
@@ -667,6 +700,10 @@ def updateDisciplina(id):
         logger.error("Aconteceu um erro.")
 
     return jsonify(disciplina)
+
+@app.errorhandler(JsonValidationError)
+def validation_error(e):
+    return jsonify({ 'error': e.message, 'errors': [validation_error.message for validation_error  in e.errors]})
 
 if(__name__ == '__main__'):
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
