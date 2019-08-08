@@ -963,7 +963,7 @@ def getTurmas():
             turma = {
                 "id_turma":linha[0],
                 "nome":linha[1],
-                "curso":linha[2]
+                "fk_id_curso":linha[2]
             }
             turmas.append(turma)
 
@@ -993,7 +993,7 @@ def getTurmasByID(id):
         turma = {
             "id_turma":linha[0],
             "nome":linha[1],
-            "curso":linha[2]
+            "fk_id_curso":linha[2]
         }
 
         conn.close()
@@ -1012,16 +1012,14 @@ def setTurma():
     try:
         turma = request.get_json()
         nome = turma["nome"]
-        print(nome)
-        curso = turma["curso"]
-        print(curso)
+        fk_id_curso = turma["curso"]
 
         conn = sqlite3.connect(databaseName)
         cursor = conn.cursor()
         cursor.execute("""
-            INSERT INTO tb_turma(nome, curso)
+            INSERT INTO tb_turma(nome, fk_id_curso)
             VALUES(?, ?);
-        """, (nome, curso))
+        """, (nome, fk_id_curso))
 
         conn.commit()
         conn.close()
@@ -1043,9 +1041,7 @@ def updateTurma(id):
     try:
         turma = request.get_json()
         nome = turma['nome']
-        print(nome)
-        curso = turma['curso']
-        print(curso)
+        fk_id_curso = turma['curso']
 
         conn = sqlite3.connect(databaseName)
         cursor = conn.cursor()
@@ -1060,9 +1056,9 @@ def updateTurma(id):
         if (tab is not None):
             cursor.execute("""
                 UPDATE tb_turma
-                SET nome=?, curso=?
+                SET nome=?, fk_id_curso=?
                 WHERE id_disciplina = ?
-                """, (nome,curso, id))
+                """, (nome,fk_id_curso, id))
             conn.commit()
         else:
             print ("Escolher o recurso '/turma' :)")
