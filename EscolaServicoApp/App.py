@@ -942,7 +942,71 @@ def getCampiByID(id):
     return jsonify(campus)
 
 #setCampus
+@app.route("/campus", methods=['POST'])
+@schema.validate(campus_schema)
+def setCampus():
+    logger.info('Cadastrando o campus')
+
+    try:
+        campus = request.get_json()
+        sigla = curso["sigla"]
+        cidade = curso["cidade"]
+
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO tb_campus(sigla, cidade)
+            VALUES(?, ?);
+        """, (sigla, cidade))
+
+        conn.commit()
+        conn.close()
+
+        id = cursor.lastrowid
+        curso['id'] = id
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
+
+    return jsonify(campus)
+
 #updateCampus
+@app.route("/campus/<int:id>", methods=['PUT'])
+@schema.validate(campus_schema)
+def updateCurso(id):
+    logger.info("Atualizando o campus")
+
+    try:
+        campus = request.get_json()
+        sigla = curso["sigla"]
+        cidade = curso["cidade"]
+
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT *
+            FROM tb_campus
+            WHERE id_campus = ?;
+            """, (id,))
+
+        tab = cursor.fetchone()
+
+        if (tab is not None):
+            cursor.execute("""
+                UPDATE tb_campus
+                SET sigla=?, cidade=?
+                WHERE id_campus = ?
+                """, (sigla, cidade, id))
+            conn.commit()
+        else:
+            print ("Escolher o recurso '/campus' :)")
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
+
+    return jsonify(campus)
 
 #getTurmas
 @app.route("/turmas", methods=['GET'])
