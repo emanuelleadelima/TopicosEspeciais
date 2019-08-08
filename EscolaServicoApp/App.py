@@ -1070,10 +1070,125 @@ def updateTurma(id):
 
     return jsonify(turma)
 
-#getTurno
+#getTurnos
+@app.route("/turnos", methods=['GET'])
+def getTurnos():
+    logger.info("Listando turnos")
+
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT * FROM tb_endereco;
+        """)
+
+        turnos = []
+        for linha in cursor.fetchall():
+            turno = {
+                "id_turno":linha[0],
+                "nome":linha[1]
+            }
+            turnos.append(turno)
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
+
+    return jsonify(turnos)
+    
 #getTurnosByID
+@app.route("/turnos/<int:id>", methods=['GET'])
+def getTurnosByID(id):
+    logger.info("Listando turno pelo ID: %s" %(id))
+
+    try:
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+
+        cursor.execute("""
+            SELECT *
+            FROM tb_turno
+            WHERE id_turno = ?;
+        """, (id, ))
+
+        linha = cursor.fetchone()
+        turno = {
+            "id_turno":linha[0],
+            "nome":linha[1]
+        }
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
+
+    return jsonify(turno)
+
 #setTurno
+@app.route("/turno", methods=['POST'])
+@schema.validate(turno_schema)
+def setTurno():
+    logger.info('Cadastrando o turno')
+
+    try:
+        turno = request.get_json()
+        nome = turno["nome"]
+
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            INSERT INTO tb_turno(nome)
+            VALUES(?);
+        """, (nome, ))
+
+        conn.commit()
+        conn.close()
+
+        id = cursor.lastrowid
+        endereco['id'] = id
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
+
+    return jsonify(turno)
+    
 #updateTurno
+@app.route("/turno/<int:id>", methods=['PUT'])
+@schema.validate(turno_schema)
+def updateTurno(id):
+    logger.info('Atualizando o turno')
+
+    try:
+        turno = request.get_json()
+        nome = turno["nome"]
+
+        conn = sqlite3.connect(databaseName)
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT *
+            FROM tb_turno
+            WHERE id_turno = ?;
+            """, (id,))
+
+        tab = cursor.fetchone()
+
+        if (tab is not None):
+            cursor.execute("""
+                UPDATE tb_turno
+                SET nome=?
+                """ (nome, id))
+            conn.commit()
+        else:
+            print ("Escolher o recurso '/turno' :)")
+
+        conn.close()
+
+    except(sqlite3.Error):
+        logger.error("Aconteceu um erro.")
+
+    return jsonify(turno)
 
 @app.errorhandler(JsonValidationError)
 def validation_error(e):
