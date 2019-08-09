@@ -5,8 +5,7 @@ import logging
 
 app = Flask(__name__)
 
-formatter = logging.Formatter("%(asctime)s - %(le
-velname)s - %(message)s")
+formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
 handler = logging.FileHandler("escolaapp.log")
 handler.setFormatter(formatter)
 
@@ -54,7 +53,7 @@ professor_schema = {
     'required': ['nome', 'fk_id_endereco'],
     'properties': {
         'nome': {'type': 'string'},
-        'fk_id_endereco': {'type': 'integer'},
+        'fk_id_endereco': {'type': 'integer'}
     }
 }
 
@@ -79,10 +78,11 @@ campus_schema = {
     'properties': {
         'sigla': {'type': 'string'},
         'cidade': {'type': 'string'}
+    }
 }
 
 turma_schema = {
-    'required': ['nome','curso'],
+    'required': ['nome','fk_id_curso'],
     'properties': {
         'nome': {'type': 'string'},
         'fk_id_curso': {'type': 'integer'}
@@ -187,7 +187,7 @@ def setEndereco():
         conn.close()
 
         id = cursor.lastrowid
-        endereco['id'] = id
+        endereco['id_endereco'] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -213,7 +213,7 @@ def updateEndereco(id):
         cursor.execute("""
             SELECT *
             FROM tb_endereco
-            WHERE idtb_endereco = ?;
+            WHERE id_endereco = ?;
             """, (id,))
 
         tab = cursor.fetchone()
@@ -222,7 +222,8 @@ def updateEndereco(id):
             cursor.execute("""
                 UPDATE tb_endereco
                 SET logradouro=?, complemento=?, bairro=?, cep=?, numero=?
-                """ (logradouro,complemento, bairro, cep, numero, id))
+                where id_endereco = ?
+                """, (logradouro,complemento, bairro, cep, numero, id))
             conn.commit()
         else:
             print ("Escolher o recurso '/endereco' :)")
@@ -317,7 +318,7 @@ def setEscola():
         conn.close()
 
         id = cursor.lastrowid
-        escola['id'] = id
+        escola['id_escola'] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -350,7 +351,8 @@ def updateEscola(id):
             cursor.execute("""
                 UPDATE tb_escola
                 SET nome=?, fk_id_endereco=?, fk_id_campus=?
-                """ (nome, fk_id_endereco, fk_id_campus, id))
+                where id_escola =?
+                """, (nome, fk_id_endereco, fk_id_campus, id))
             conn.commit()
         else:
             print ("Escolher o recurso '/escola' :)")
@@ -448,14 +450,14 @@ def setAluno():
         cursor = conn.cursor()
         cursor.execute("""
             INSERT INTO tb_aluno(nome, matricula, cpf, nascimento, fk_id_endereco, fk_id_curso)
-            VALUES(?, ?, ?, ?);
+            VALUES(?, ?, ?, ?, ?, ?);
         """, (nome, matricula, cpf, nascimento, fk_id_endereco, fk_id_curso))
 
         conn.commit()
         conn.close()
 
         id = cursor.lastrowid
-        aluno['id'] = id
+        aluno['id_aluno'] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -532,7 +534,7 @@ def getProfessores():
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
 
-    return jsonify(disciplinas)
+    return jsonify(professores)
 
 #getProfessoresByID
 @app.route("/professores/<int:id>", methods=['GET'])
@@ -585,7 +587,7 @@ def setProfessor():
         conn.close()
 
         id = cursor.lastrowid
-        professor["id"] = id
+        professor["id_professor"] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -712,7 +714,7 @@ def setDisciplina():
         conn.close()
 
         id = cursor.lastrowid
-        disciplina["id"] = id
+        disciplina["id_disciplina"] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -837,7 +839,7 @@ def setCurso():
         conn.close()
 
         id = cursor.lastrowid
-        curso['id'] = id
+        curso['id_curso'] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -949,8 +951,8 @@ def setCampus():
 
     try:
         campus = request.get_json()
-        sigla = curso["sigla"]
-        cidade = curso["cidade"]
+        sigla = campus["sigla"]
+        cidade = campus["cidade"]
 
         conn = sqlite3.connect(databaseName)
         cursor = conn.cursor()
@@ -963,7 +965,7 @@ def setCampus():
         conn.close()
 
         id = cursor.lastrowid
-        curso['id'] = id
+        campus['id_campus'] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -973,13 +975,13 @@ def setCampus():
 #updateCampus
 @app.route("/campus/<int:id>", methods=['PUT'])
 @schema.validate(campus_schema)
-def updateCurso(id):
+def updateCampus(id):
     logger.info("Atualizando o campus")
 
     try:
         campus = request.get_json()
-        sigla = curso["sigla"]
-        cidade = curso["cidade"]
+        sigla = campus["sigla"]
+        cidade = campus["cidade"]
 
         conn = sqlite3.connect(databaseName)
         cursor = conn.cursor()
@@ -1076,7 +1078,7 @@ def setTurma():
     try:
         turma = request.get_json()
         nome = turma["nome"]
-        fk_id_curso = turma["curso"]
+        fk_id_curso = turma["fk_id_curso"]
 
         conn = sqlite3.connect(databaseName)
         cursor = conn.cursor()
@@ -1089,7 +1091,7 @@ def setTurma():
         conn.close()
 
         id = cursor.lastrowid
-        turma["id"] = id
+        turma["id_turma"] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
@@ -1105,7 +1107,7 @@ def updateTurma(id):
     try:
         turma = request.get_json()
         nome = turma['nome']
-        fk_id_curso = turma['curso']
+        fk_id_curso = turma['fk_id_curso']
 
         conn = sqlite3.connect(databaseName)
         cursor = conn.cursor()
@@ -1144,7 +1146,7 @@ def getTurnos():
         cursor = conn.cursor()
 
         cursor.execute("""
-            SELECT * FROM tb_endereco;
+            SELECT * FROM tb_turno;
         """)
 
         turnos = []
@@ -1161,7 +1163,7 @@ def getTurnos():
         logger.error("Aconteceu um erro.")
 
     return jsonify(turnos)
-    
+
 #getTurnosByID
 @app.route("/turnos/<int:id>", methods=['GET'])
 def getTurnosByID(id):
@@ -1211,13 +1213,13 @@ def setTurno():
         conn.close()
 
         id = cursor.lastrowid
-        endereco['id'] = id
+        turno['id_turno'] = id
 
     except(sqlite3.Error):
         logger.error("Aconteceu um erro.")
 
     return jsonify(turno)
-    
+
 #updateTurno
 @app.route("/turno/<int:id>", methods=['PUT'])
 @schema.validate(turno_schema)
@@ -1242,7 +1244,8 @@ def updateTurno(id):
             cursor.execute("""
                 UPDATE tb_turno
                 SET nome=?
-                """ (nome, id))
+                where id_turno = ?
+                """, (nome, id))
             conn.commit()
         else:
             print ("Escolher o recurso '/turno' :)")
