@@ -4,7 +4,6 @@
 }
 
 .meu-container{
-  border: 1px solid deeppink;
   width: 80%;
   margin: 0 auto;
   padding: 0;
@@ -16,11 +15,11 @@
 }
 
 header{
-  background-color: #DDA0DD;
+  background-color: #CAE1FF;
 }
 
 main{
-  background-color: #B2DFEE;
+  background-color: #483D8B;
   flex-grow: 1;
 }
 
@@ -29,7 +28,9 @@ body{
 }
 
 footer{
-  background-color: #C71585;
+  background-color: #D02090;
+  text-align: right;
+  padding-right: 1em;
 }
 
 .content{
