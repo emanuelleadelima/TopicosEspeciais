@@ -4,7 +4,7 @@
 }
 
 .meu-container{
-  width: 80%;
+  width:85%;
   margin: 0 auto;
   padding: 0;
   min-height: 100vh;
@@ -16,11 +16,19 @@
 
 header{
   background-color: #CAE1FF;
+  color: black;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  padding-top: 1px;
+  text-align: center;
+  font-size: 30px;
+
 }
 
 main{
   background-color: #483D8B;
   flex-grow: 1;
+  padding-left: 12px;
+  padding-top: 5px;
 }
 
 body{
@@ -40,4 +48,24 @@ footer{
 
 .item{
   margin: 3em;
+}
+
+.formulario{
+  color: white;
+  background-color: #50635E;
+  padding: 10px;
+}
+
+.wrapper img{
+  padding-bottom: 5px;
+}
+
+.forms{
+  background-color: white;
+  padding-left: 0;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+}
+
+.formturno{
+  background-color: black;
 }
