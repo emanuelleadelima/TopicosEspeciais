@@ -15,7 +15,7 @@
 }
 
 header{
-  background-color: #CAE1FF;
+  background-color: #D9A18B;
   color: black;
   font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
   padding-top: 1px;
@@ -25,7 +25,7 @@ header{
 }
 
 main{
-  background-color: #483D8B;
+  background-color: #EECB3E;
   flex-grow: 1;
   padding-left: 12px;
   padding-top: 5px;
@@ -36,9 +36,10 @@ body{
 }
 
 footer{
-  background-color: #D02090;
+  background-color: #1E2953;
   text-align: right;
   padding-right: 1em;
+  padding-top: 0.5em;
 }
 
 .content{
@@ -52,7 +53,7 @@ footer{
 
 .formulario{
   color: white;
-  background-color: #50635E;
+  background-color: #008B8B;
   padding: 10px;
 }
 
@@ -64,8 +65,4 @@ footer{
   background-color: white;
   padding-left: 0;
   font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
-}
-
-.formturno{
-  background-color: black;
 }
