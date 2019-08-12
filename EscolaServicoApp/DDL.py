@@ -6,7 +6,7 @@ cursor = conn.cursor()
 
 cursor.execute("""
     CREATE TABLE tb_endereco(
-        idtb_endereco INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+        id_endereco INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         logradouro VARCHAR(65) NOT NULL,
         complemento VARCHAR(45) NOT NULL,
         bairro VARCHAR(45) NOT NULL,
