@@ -1,8 +1,81 @@
+
 body{
   font-family: arial, verdana, helvetica, sans-serif;
 }
 
-div.container{
-  border: 1px solid blue;
-  margin: 0 auto;
+h2{
+  border: 1px solid rgb(255, 20, 40);
+  font-family: bodoni, serif;
+}
+
+.formturno{
+  background-color: #1C86EE;
+}
+
+.formturma{
+  background-color: #FF4500;
+}
+
+.formprofessor{
+  background-color: #00CD66;
+}
+
+.formescola{
+  background-color: #008B8B;
+}
+
+.formendereco{
+  background-color: black;
+}
+
+.formdisciplina{
+  background-color: #FFB90F;
+}
+
+.formcurso{
+  background-color: #68228B;
+}
+
+.formcampus{
+  background-color: #EE1289;
+}
+
+.formaluno{
+  background-color: #8B1A1A;
+}
+
+.turno{
+  color: #1C86EE;
+}
+
+.turma{
+  color: #FF4500;
+}
+
+.professor{
+  color: #00CD66;
+}
+
+.escola{
+  color: #008B8B;
+}
+
+.endereco{
+  color: black;
+}
+
+.disciplina{
+  color: #FFB90F;
+}
+
+.curso{
+  color: #68228B;
+}
+
+.campus{
+  color: #EE1289;
+}
+
+.aluno{
+  color: #8B1A1A;
 }
