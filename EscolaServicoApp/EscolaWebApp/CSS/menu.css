@@ -1,7 +1,7 @@
 .navigation {
   list-style: none;
   margin: 0;
-  background: #8CD1DA;
+  background: #45C5D1;
 
   /*Flex*/
   display: flex;
@@ -12,7 +12,7 @@
   text-decoration: none;
   display: block;
   padding: 1em;
-  color: white;
+  color: #696969;
   font-size: 15px;
 }
 
