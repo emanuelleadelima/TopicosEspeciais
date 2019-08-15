@@ -12,10 +12,11 @@
   /*flex*/
   display: flex;
   flex-direction: column;
+  overflow: scroll;
 }
 
 header{
-  background-color: #D9A18B;
+  background-color: #2C84B8;
   color: black;
   font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
   padding-top: 1px;
@@ -25,10 +26,11 @@ header{
 }
 
 main{
-  background-color: #EECB3E;
+  background-color: white;
   flex-grow: 1;
-  padding-left: 12px;
-  padding-top: 5px;
+  padding-left: 85px;
+  padding-right: 85px;
+  padding-top: 10px;
 }
 
 body{
@@ -36,7 +38,8 @@ body{
 }
 
 footer{
-  background-color: #1E2953;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  background-color: #EE5B3E;
   text-align: right;
   padding-right: 1em;
   padding-top: 0.5em;
@@ -47,22 +50,57 @@ footer{
   flex-direction: column;
 }
 
-.item{
-  margin: 3em;
-}
-
 .formulario{
   color: white;
   background-color: #008B8B;
   padding: 10px;
 }
 
-.wrapper img{
-  padding-bottom: 5px;
+.wrapper{
+  padding-bottom: 0;
 }
 
 .forms{
   background-color: white;
   padding-left: 0;
   font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+  padding-right: 0;
+}
+
+p{
+  text-align: justify;
+  font-size: 1em;
+  font-family: Avantgarde, TeX Gyre Adventor, URW Gothic L, sans-serif;
+}
+
+.carousel{
+  padding-bottom: 10px;
+}
+
+.card-img{
+  max-width: 200px;
+  max-height: 400px;
+}
+
+IMG.displayed {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+IMG.displayed2 {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 50px;
+}
+
+.col-md-4{
+  padding-top: 20px;
+}
+
+img.left{
+  display: block;
+  margin-right: 10px;
+  margin-top: 10px;
 }
