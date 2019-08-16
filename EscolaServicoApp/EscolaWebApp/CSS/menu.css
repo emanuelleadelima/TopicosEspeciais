@@ -6,7 +6,13 @@
   /*Flex*/
   display: flex;
   flex-direction: row-reverse;
-  overflow: scroll;
+}
+
+.navbar-nav{
+  list-style: none;
+  display: flex;
+  flex-direction: row-reverse;
+  margin: 0;
 }
 
 .navigation a{
