@@ -2,7 +2,8 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Cadastro Escola</title>
+    <title>Cadastro Turma</title>
+    <link rel="shortcut icon" href="logo.png"></link>
     <link href="CSS/index.css" rel="stylesheet" type="text/css">
 		<link href="CSS/menu.css" rel="stylesheet" type="text/css">
     <link href="CSS/estilo.css" rel="stylesheet" type="text/css">
@@ -14,6 +15,30 @@
 		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	</head>
   <body>
+    <header>
+      Cadastros
+      <nav class="navbar navbar-expand-lg navigation">
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon white">=</span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a href="index.html">
+              <img src="logo.png" class="left" style="width:60px;height:60px">
+            </a>
+            <a class="nav-item nav-link" href="Aluno.html">Aluno</a>
+            <a class="nav-item nav-link" href="Endereco.html">Endereço</a>
+            <a class="nav-item nav-link" href="Escola.html">Escola</a>
+            <a class="nav-item nav-link" href="Professor.html">Professor</a>
+            <a class="nav-item nav-link" href="Campus.html">Campus</a>
+            <a class="nav-item nav-link" href="Turno.html">Turno</a>
+            <a class="nav-item nav-link" href="Curso.html">Curso</a>
+            <a class="nav-item nav-link" href="Disciplina.html">Disciplina</a>
+            <a class="nav-item nav-link" href="Turma.html">Turma</a>
+          </div>
+        </div>
+      </nav>
+    </header>
     <main class="forms">
       <h1 class="turma"> Cadastrar Turmas</h1>
       <form class="formturma formulario" action="http://localhost:5000/turma" method="POST">
@@ -27,9 +52,9 @@
         </div>
         <button type="button" class="btn btn-outline-light btn-block">Cadastrar</button>
       </form>
-      <a href="index.html">
-       <img src="logo.png" class="displayed2" style="width:150px;height:150px">
-      </a>
     </main>
+    <footer>
+      <h6> Projeto - Beatriz Pontes da Costa e Emanuelle Alves de Lima</h6>
+    </footer>
   </body>
 </html>
