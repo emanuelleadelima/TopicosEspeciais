@@ -21,8 +21,8 @@ cursor.execute("""
     CREATE TABLE tb_escola(
         id_escola INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         nome VARCHAR(45) NOT NULL,
-        fk_id_endereco INTEGER NOT NULL,
-        fk_id_campus INTEGER NOT NULL
+        id_endereco INTEGER NOT NULL,
+        id_campus INTEGER NOT NULL
     );
 """)
 
@@ -35,8 +35,8 @@ cursor.execute("""
         matricula VARCHAR(12) NOT NULL,
         cpf VARCHAR(11) NOT NULL,
         nascimento DATE NOT NULL,
-        fk_id_endereco INTEGER NOT NULL,
-        fk_id_curso INTEGER NOT NULL
+        id_endereco INTEGER NOT NULL,
+        id_curso INTEGER NOT NULL
     );
 """)
 
@@ -46,7 +46,7 @@ cursor.execute("""
     CREATE TABLE tb_professor(
         id_professor INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         nome VARCHAR(45) NOT NULL,
-        fk_id_endereco INTEGER NOT NULL
+        id_endereco INTEGER NOT NULL
     )
 """)
 
@@ -56,7 +56,7 @@ cursor.execute("""
     CREATE TABLE tb_disciplina(
         id_disciplina INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         nome VARCHAR(45) NOT NULL,
-        fk_id_professor INTEGER NOT NULL
+        id_professor INTEGER NOT NULL
     );
 """)
 
@@ -66,7 +66,7 @@ cursor.execute("""
     CREATE TABLE tb_curso(
         id_curso INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         nome VARCHAR(45) NOT NULL,
-        fk_id_turno INTEGER NOT NULL
+        id_turno INTEGER NOT NULL
     );
 """)
 
@@ -86,7 +86,7 @@ cursor.execute("""
     CREATE TABLE tb_turma(
         id_turma INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
         nome VARCHAR(45) NOT NULL,
-        fk_id_curso INTEGER NOT NULL
+        id_curso INTEGER NOT NULL
     );
 """)
 
