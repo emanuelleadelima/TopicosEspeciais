@@ -4,7 +4,7 @@
 }
 
 .meu-container{
-  width:85%;
+  width:auto;
   margin: 0 auto;
   padding: 0;
   min-height: 100vh;
@@ -28,9 +28,6 @@ header{
 main{
   background-color: white;
   flex-grow: 1;
-  padding-left: 85px;
-  padding-right: 85px;
-  padding-top: 10px;
 }
 
 body{
@@ -75,7 +72,7 @@ p{
 }
 
 .carousel{
-  padding-bottom: 10px;
+  padding-bottom: 0px;
 }
 
 .card-img{
@@ -100,8 +97,16 @@ IMG.displayed2 {
   padding-top: 20px;
 }
 
-img.left{
-  display: block;
-  margin-right: 10px;
-  margin-top: 10px;
+.navbar{
+  display: table;
+}
+
+.collapse{
+  float: left;
+  width: 30%;
+}
+
+.pic{
+  float: right;
+  margin-left: 32%;
 }
