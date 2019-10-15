@@ -51,16 +51,35 @@
     </header>
     <main ng-controller="CampusController" class="forms">
       <h1 class="campus"> Cadastrar Campus</h1>
-      <form class="formcampus formulario" action="http://localhost:5000/campus" method="POST">
+      <form class="formcampus formulario" action="http://localhost:5000/campus" method="POST" name="FormAJS">
         <div class="form-group">
           <label for="sigla">Sigla: </label>
-          <input type="text" class="form-control" name="sigla" ng-model="sigla" placeholder="Sigla">
+          <input type="text" class="form-control" name="sigla" ng-model="sigla" placeholder="Sigla" ng-required="true">
         </div>
         <div class="form-group">
           <label for="cidade">Cidade: </label>
-          <input type="text" class="form-control" name="cidade" ng-model="cidade" placeholder="Cidade">
+          <input type="text" class="form-control" name="cidade" ng-model="cidade" placeholder="Cidade" ng-required="true" ng-minlength="10">
         </div>
-        <button type="button" name="Cadastrar" value="Cadastrar" class="btn btn-outline-light btn-block">Cadastrar</button>
+        <button ng-click="teste()" ng-disabled="FormAJS.$invalid" type="button" name="Cadastrar" value="Cadastrar" class="btn btn-outline-light btn-block">Cadastrar</button>
+        <h1>{{mensagem2}}</h1>
+
+        <!-- ng-messages | campo sigla | 1st -->
+        <div ng-messages="FormAJS.sigla.$error" ng-if='FormAJS.sigla.$dirty'>
+    			<div ng-message="required" class="alert alert-danger">
+    				Por favor, preencha o campo sigla!
+    			</div>
+    		</div>
+
+        <!-- ng-messages | campo cidade | 2nd -->
+        <div ng-messages="FormAJS.cidade.$error" ng-if='FormAJS.cidade.$dirty'>
+    			<div ng-message="required" class="alert alert-danger">
+    				Por favor, preencha o campo cidade!
+    			</div>
+    			<div ng-message="minlength" class="alert alert-danger">
+    				O campo nome deve ter no mínimo 10 caracteres.
+    			</div>
+    		</div>
+
       </form>
     </main>
     <footer>
