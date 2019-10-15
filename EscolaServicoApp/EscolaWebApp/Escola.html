@@ -51,20 +51,46 @@
     </header>
     <main ng-controller="EscolaController" class="forms">
       <h1 class="escola"> Cadastrar Escolas</h1>
-      <form class="formescola formulario" action="http://localhost:5000/escola" method="POST">
+      <form class="formescola formulario" action="http://localhost:5000/escola" method="POST" name="FormAJS">
         <div class="form-group">
           <label for="nome">Nome da Escola: </label>
-          <input type="text" class="form-control" name="nome" ng-model="nome" placeholder="Nome">
+          <input type="text" class="form-control" name="nome" ng-model="nome" placeholder="Nome" ng-required="true" ng-minlength="10"/>
         </div>
         <div class="form-group">
           <label for="id_endereco">Endereço: </label>
-          <input type="text" class="form-control" name="id_endereco" ng-model="id_endereco" placeholder="ID endereço">
+          <input type="text" class="form-control" name="id_endereco" ng-model="id_endereco" placeholder="ID endereço" ng-required="true">
         </div>
         <div class="form-group">
           <label for="id_campus">Campus: </label>
-          <input type="text" class="form-control" name="id_campus" ng-model="id_campus" placeholder="ID campus">
+          <input type="text" class="form-control" name="id_campus" ng-model="id_campus" placeholder="ID campus" ng-required="true">
         </div>
-        <button type="button" name="Cadastrar" value="Cadastrar" class="btn btn-outline-light btn-block">Cadastrar</button>
+        <button ng-click="teste()" ng-disabled="FormAJS.$invalid" type="button" name="Cadastrar" value="Cadastrar" class="btn btn-outline-light btn-block">Cadastrar</button>
+        <h1>{{mensagem2}}</h1>
+
+        <!-- ng-messages | campo nome | 1st -->
+        <div ng-messages="FormAJS.nome.$error" ng-if='FormAJS.nome.$dirty'>
+    			<div ng-message="required" class="alert alert-danger">
+    				Por favor, preencha o campo nome!
+    			</div>
+    			<div ng-message="minlength" class="alert alert-danger">
+    				O campo nome deve ter no mínimo 10 caracteres.
+    			</div>
+    		</div>
+
+        <!-- ng-messages | campo ID endereço | 2nd -->
+        <div ng-messages="FormAJS.id_endereco.$error" ng-if='FormAJS.id_endereco.$dirty'>
+    			<div ng-message="required" class="alert alert-danger">
+    				Por favor, preencha o campo ID endereço!
+    			</div>
+    		</div>
+
+        <!-- ng-messages | campo ID campus | 3rd -->
+        <div ng-messages="FormAJS.id_campus.$error" ng-if='FormAJS.id_campus.$dirty'>
+    			<div ng-message="required" class="alert alert-danger">
+    				Por favor, preencha o campo ID campus!
+    			</div>
+    		</div>
+
       </form>
     </main>
     <footer>
