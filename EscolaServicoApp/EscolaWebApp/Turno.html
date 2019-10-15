@@ -51,12 +51,24 @@
     </header>
     <main ng-controller="TurnoController" class="forms">
     <h1 class="turno"> Cadastrar Turno</h1>
-      <form class="formturno formulario" action="http://localhost:5000/turno" method="POST">
+      <form class="formturno formulario" action="http://localhost:5000/turno" method="POST" name="FormAJS">
         <div class="form-group">
           <label for="nome">Turno: </label>
-          <input type="text" class="form-control" name="nome" ng-model="nome" placeholder="Nome">
+          <input type="text" class="form-control" name="nome" ng-model="nome" placeholder="Nome" ng-required="true" ng-minlength="5"/>
         </div>
-        <button type="button" class="btn btn-outline-light btn-block">Cadastrar</button>
+        <button ng-click="teste()" ng-disabled="FormAJS.$invalid" type="button" class="btn btn-outline-light btn-block">Cadastrar</button>
+        <h1>{{mensagem2}}</h1>
+
+        <!-- ng-messages | campo nome | 1st -->
+        <div ng-messages="FormAJS.nome.$error" ng-if='FormAJS.nome.$dirty'>
+    			<div ng-message="required" class="alert alert-danger">
+    				Por favor, preencha o campo nome!
+    			</div>
+    			<div ng-message="minlength" class="alert alert-danger">
+    				O campo nome deve ter no mínimo 5 caracteres.
+    			</div>
+    		</div>
+
       </form>
     </main>
     <footer>
