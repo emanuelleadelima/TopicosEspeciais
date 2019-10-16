@@ -81,7 +81,7 @@ app.controller('AlunoController', alunoController);
 //Professor.html
 var professorController = function($scope){
   $scope.nome = "";
-  $scope.id_endereco = ";"
+  $scope.id_endereco = "";
 
   $scope.nome2 = "MiniTeste";
 
