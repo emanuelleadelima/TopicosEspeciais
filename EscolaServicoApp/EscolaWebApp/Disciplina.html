@@ -32,14 +32,14 @@
         <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
           <div class="navbar-nav">
             <a class="nav-item nav-link" href="Aluno.html">Aluno</a>
+            <a class="nav-item nav-link" href="Campus.html">Campus</a>
+            <a class="nav-item nav-link" href="Curso.html">Curso</a>
+            <a class="nav-item nav-link" href="Disciplina.html">Disciplina</a>
             <a class="nav-item nav-link" href="Endereco.html">Endereço</a>
             <a class="nav-item nav-link" href="Escola.html">Escola</a>
             <a class="nav-item nav-link" href="Professor.html">Professor</a>
-            <a class="nav-item nav-link" href="Campus.html">Campus</a>
-            <a class="nav-item nav-link" href="Turno.html">Turno</a>
-            <a class="nav-item nav-link" href="Curso.html">Curso</a>
-            <a class="nav-item nav-link" href="Disciplina.html">Disciplina</a>
             <a class="nav-item nav-link" href="Turma.html">Turma</a>
+            <a class="nav-item nav-link" href="Turno.html">Turno</a>
           </div>
           <div class="pic">
             <a href="index.html">
@@ -50,36 +50,33 @@
       </nav>
     </header>
     <main ng-controller="DisciplinaController" class="forms">
-      <h1 class="disciplina"> Cadastrar Disciplinas</h1>
-      <form class="formdisciplina formulario" action="http://localhost:5000/disciplina" method="POST" name="FormAJS">
+      <form class="formulario" action="http://localhost:5000/disciplina" method="POST" name="disciplinaform">
         <div class="form-group">
           <label for="nome">Nome da Disciplina: </label>
-          <input type="text" class="form-control" name="nome" ng-model="nome" placeholder="Nome" ng-required="true" ng-minlength="10"/>
+          <input type="text" class="form-control" name="nome" ng-model="disciplina.nome" placeholder="Nome" ng-required="true" ng-minlength="10"/>
+
+          <!-- ng-messages | campo nome | 1st -->
+          <div ng-messages="disciplinaform.nome.$error" ng-if='disciplinaform.nome.$dirty'>
+      			<div ng-message="required" class="alert alert-danger">
+      				Por favor, preencha o campo nome!
+      			</div>
+      			<div ng-message="minlength" class="alert alert-info">
+      				O campo nome deve ter no mínimo 10 caracteres.
+      			</div>
+      		</div>
         </div>
         <div class="form-group">
-          <label for="id_professor">Nome do Professor: </label>
-          <input type="text" class="form-control" name="id_professor" ng-model="id_professor" placeholder="ID professor" ng-required="true">
+          <label for="id_professor">Professor: </label>
+          <input type="text" class="form-control" name="id_professor" ng-model="disciplina.id_professor" placeholder="ID professor" ng-required="true">
+
+          <!-- ng-messages | campo ID turno | 2nd -->
+          <div ng-messages="disciplinaform.id_professor.$error" ng-if='disciplinaform.id_professor.$dirty'>
+      			<div ng-message="required" class="alert alert-danger">
+      				Por favor, preencha o campo ID professor!
+      			</div>
+      		</div>
         </div>
-        <button ng-click="teste()" ng-disabled="FormAJS.$invalid" type="button" name="Cadastrar" value="Cadastrar" class="btn btn-outline-light btn-block">Cadastrar</button>
-        <h1>{{mensagem2}}</h1>
-
-        <!-- ng-messages | campo nome | 1st -->
-        <div ng-messages="FormAJS.nome.$error" ng-if='FormAJS.nome.$dirty'>
-    			<div ng-message="required" class="alert alert-danger">
-    				Por favor, preencha o campo nome!
-    			</div>
-    			<div ng-message="minlength" class="alert alert-danger">
-    				O campo nome deve ter no mínimo 10 caracteres.
-    			</div>
-    		</div>
-
-        <!-- ng-messages | campo ID turno | 2nd -->
-        <div ng-messages="FormAJS.id_professor.$error" ng-if='FormAJS.id_professor.$dirty'>
-    			<div ng-message="required" class="alert alert-danger">
-    				Por favor, preencha o campo ID professor!
-    			</div>
-    		</div>
-
+        <button ng-click="cadastrar()" ng-disabled="disciplinaform.$invalid" type="button" name="Cadastrar" value="Cadastrar" class="btn btn-outline-light btn-block">Cadastrar</button>
       </form>
     </main>
     <footer>
