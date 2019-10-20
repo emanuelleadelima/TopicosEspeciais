@@ -19,21 +19,61 @@ var homeController = function($scope){
 
 app.controller('HomeController', homeController);
 
+//Aluno.html
+var alunoController = function($scope){
+  $scope.aluno = {};
+
+  $scope.cadastrar = function(){
+    delete $scope.aluno;
+    $scope.alunoform.$setPristine();
+  }
+}
+
+app.controller('AlunoController', alunoController);
+
+//Campus.html
+var campusController = function($scope){
+  $scope.campus = {};
+
+  $scope.cadastrar = function(){
+    delete $scope.campus;
+    $scope.campusform.$setPristine();
+  }
+}
+
+app.controller('CampusController', campusController);
+
+//Curso.html
+var cursoController = function($scope){
+  $scope.curso = {};
+
+  $scope.cadastrar = function(){
+    delete $scope.curso;
+    $scope.cursoform.$setPristine();
+  }
+}
+
+app.controller('CursoController', cursoController);
+
+//Disciplina.html
+var disciplinaController = function($scope){
+  $scope.disciplina = {};
+
+  $scope.cadastrar = function(){
+    delete $scope.disciplina;
+    $scope.disciplinaform.$setPristine();
+  }
+}
+
+app.controller('DisciplinaController', disciplinaController);
+
 //Endereco.html
 var enderecoController = function($scope){
-  $scope.logradouro = "";
-  $scope.complemento = "";
-  $scope.bairro = "";
-  $scope.cep = "";
-  $scope.numero = "";
+  $scope.endereco = {};
 
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
+  $scope.cadastrar = function(){
+    delete $scope.endereco;
+    $scope.enderecoform.$setPristine();
   }
 }
 
@@ -41,123 +81,35 @@ app.controller('EnderecoController', enderecoController);
 
 //Escola.html
 var escolaController = function($scope){
-  $scope.nome = "";
-  $scope.id_endereco = "";
-  $scope.id_campus = "";
+  $scope.escola = {};
 
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
+  $scope.cadastrar = function(){
+    delete $scope.escola;
+    $scope.escolaform.$setPristine();
   }
 }
 
 app.controller('EscolaController', escolaController);
 
-//Aluno.html
-var alunoController = function($scope){
-  $scope.nome = "";
-  $scope.matricula = "";
-  $scope.cpf = "";
-  $scope.nascimento = "";
-  $scope.id_endereco = "";
-  $scope.id_curso = "";
-
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
-  }
-}
-
-app.controller('AlunoController', alunoController);
-
 //Professor.html
 var professorController = function($scope){
-  $scope.nome = "";
-  $scope.id_endereco = "";
+  $scope.professor = {};
 
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
+  $scope.cadastrar = function(){
+    delete $scope.professor;
+    $scope.professorform.$setPristine();
   }
 }
 
 app.controller('ProfessorController', professorController);
 
-//Disciplina.html
-var disciplinaController = function($scope){
-  $scope.nome = "";
-  $scope.id_professor = "";
-
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
-  }
-}
-
-app.controller('DisciplinaController', disciplinaController);
-
-//Curso.html
-var cursoController = function($scope){
-  $scope.nome = "";
-  $scope.id_turno = "";
-
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
-  }
-}
-
-app.controller('CursoController', cursoController);
-
-//Campus.html
-var campusController = function($scope){
-  $scope.sigla = "";
-  $scope.cidade = "";
-
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
-  }
-}
-
-app.controller('CampusController', campusController);
-
 //Turma.html
 var turmaController = function($scope){
-  $scope.nome = "";
-  $scope.id_curso = "";
+  $scope.turma = {};
 
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
+  $scope.cadastrar = function(){
+    delete $scope.turma;
+    $scope.turmaform.$setPristine();
   }
 }
 
@@ -165,15 +117,11 @@ app.controller('TurmaController', turmaController);
 
 //Turno.html
 var turnoController = function($scope){
-  $scope.nome = "";
+  $scope.turno = {};
 
-  $scope.nome2 = "MiniTeste";
-
-  $scope.teste = function(){
-    let nome2 = $scope.nome2;
-    $scope.mensagem2 = "Isto é um " + nome2;
-    $scope.FormAJS.$setPristine();
-    $scope.FormAJS.$setUntouched();
+  $scope.cadastrar = function(){
+    delete $scope.turno;
+    $scope.turnoform.$setPristine();
   }
 }
 
