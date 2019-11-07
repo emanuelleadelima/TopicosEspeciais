@@ -89,7 +89,7 @@
         </div>
         <div class="form-group">
           <label for="cep">Cep: </label>
-          <input type="text" class="form-control" name="cep" ng-model="endereco.cep" placeholder="Cep" ng-required="true" ng-pattern="/^\d{5}-\d{3}$/">
+          <input type="text" class="form-control" name="cep" ng-model="endereco.cep" placeholder="_____-___" maxlength="9" OnKeyPress="formatar('#####-###', this)" ng-required="true" ng-pattern="/^\d{5}-\d{3}$/">
 
           <!-- ng-messages | campo cep | 4th -->
           <div ng-messages="enderecoform.cep.$error" ng-if='enderecoform.cep.$dirty'>
@@ -112,7 +112,7 @@
             </div>
           </div>
         </div>
-	<button type="reset" name="Redefinir" value="Redefinir" class="btn btn-light">Redefinir</button>
+        <button type="reset" name="Redefinir" value="Redefinir" class="btn btn-light">Redefinir</button>
         <p></p>
         <button ng-click="cadastrar()" ng-disabled="enderecoform.$invalid" type="button" name="Cadastrar" value="Cadastrar" class="btn btn-outline-light btn-block">Cadastrar</button>
       </form>
