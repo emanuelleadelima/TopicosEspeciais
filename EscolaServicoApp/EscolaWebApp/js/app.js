@@ -6,24 +6,23 @@ var app = angular.module(nomeApp, modulos);
 
 //toda variável associada ao $scope: se eu modificar no JS, modifico na tela.
 
-//index.html
-var homeController = function($scope){
-  $scope.nome = "";
+var formatar = function(mascara, documento){
+  var i = documento.value.length;
+  var saida = mascara.substring(0,1);
+  var texto = mascara.substring(i)
 
-  $scope.desejarBoasVindas = function() {
-    let nome = $scope.nome;
-    $scope.mensagem = "Olá, " + nome;
+  if (texto.substring(0,1) != saida){
+    documento.value += texto.substring(0,1);
   }
 }
-
-app.controller('HomeController', homeController);
 
 //Aluno.html
 var alunoController = function($scope, alunoApi){
   $scope.aluno = {};
+  let aluno = $scope.aluno;
 
   $scope.cadastrar = function(){
-    alunoApi.cadastrar($scope.aluno)
+    alunoApi.cadastrar(aluno)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -65,9 +64,10 @@ app.factory("alunoApi", alunoFactory);
 //Campus.html
 var campusController = function($scope, campusApi){
   $scope.campus = {};
+  let campus = $scope.campus;
 
   $scope.cadastrar = function(){
-    campusApi.cadastrar($scope.campus)
+    campusApi.cadastrar(campus)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -109,9 +109,10 @@ app.factory("campusApi", campusFactory);
 //Curso.html
 var cursoController = function($scope, cursoApi){
   $scope.curso = {};
+  let curso = $scope.curso;
 
   $scope.cadastrar = function(){
-    cursoApi.cadastrar($scope.curso)
+    cursoApi.cadastrar(curso)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -153,9 +154,10 @@ app.factory("cursoApi", cursoFactory);
 //Disciplina.html
 var disciplinaController = function($scope, disciplinaApi){
   $scope.disciplina = {};
+  let disciplina = $scope.disciplina;
 
   $scope.cadastrar = function(){
-    disciplinaApi.cadastrar($scope.disciplina)
+    disciplinaApi.cadastrar(disciplina)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -197,9 +199,10 @@ app.factory("disciplinaApi", disciplinaFactory);
 //Endereco.html
 var enderecoController = function($scope, enderecoApi){
   $scope.endereco = {};
+  let endereco = $scope.endereco;
 
   $scope.cadastrar = function(){
-    enderecoApi.cadastrar($scope.endereco)
+    enderecoApi.cadastrar(endereco)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -241,9 +244,10 @@ app.factory("enderecoApi", enderecoFactory);
 //Escola.html
 var escolaController = function($scope, escolaApi){
   $scope.escola = {};
+  let escola = $scope.escola;
 
   $scope.cadastrar = function(){
-    escolaApi.cadastrar($scope.escola)
+    escolaApi.cadastrar(escola)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -285,9 +289,10 @@ app.factory("escolaApi", escolaFactory);
 //Professor.html
 var professorController = function($scope, professorApi){
   $scope.professor = {};
+  let professor = $scope.professor;
 
   $scope.cadastrar = function(){
-    professorApi.cadastrar($scope.professor)
+    professorApi.cadastrar(professor)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -329,9 +334,10 @@ app.factory("professorApi", professorFactory);
 //Turma.html
 var turmaController = function($scope, turmaApi){
   $scope.turma = {};
+  let turma = $scope.turma;
 
   $scope.cadastrar = function(){
-    turmaApi.cadastrar($scope.turma)
+    turmaApi.cadastrar(turma)
       .then(function(response) {})
       .catch(function(error) {});
   }
@@ -373,9 +379,10 @@ app.factory("turmaApi", turmaFactory);
 //Turno.html
 var turnoController = function($scope, turnoApi){
   $scope.turno = {};
+  let turno = $scope.turno;
 
   $scope.cadastrar = function(){
-    turnoApi.cadastrar($scope.turno)
+    turnoApi.cadastrar(turno)
       .then(function(response) {})
       .catch(function(error) {});
   }
