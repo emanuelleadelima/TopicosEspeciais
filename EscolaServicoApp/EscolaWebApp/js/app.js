@@ -1,6 +1,6 @@
 // Inicializar o módulo.
 let nomeApp = 'EscolaWebApp';
-let modulos = ["ngMessages"];
+let modulos = ['ngMaterial', 'ngMessages'];
 
 var app = angular.module(nomeApp, modulos);
 
@@ -9,7 +9,7 @@ var app = angular.module(nomeApp, modulos);
 var formatar = function(mascara, documento){
   var i = documento.value.length;
   var saida = mascara.substring(0,1);
-  var texto = mascara.substring(i)
+  var texto = mascara.substring(i);
 
   if (texto.substring(0,1) != saida){
     documento.value += texto.substring(0,1);
@@ -17,14 +17,24 @@ var formatar = function(mascara, documento){
 }
 
 //Aluno.html
-var alunoController = function($scope, alunoApi){
+var alunoController = function($scope, $mdToast, alunoApi){
   $scope.aluno = {};
   let aluno = $scope.aluno;
 
   $scope.cadastrar = function(){
     alunoApi.cadastrar(aluno)
-      .then(function(response) {})
-      .catch(function(error) {});
+      .then(function(response) {
+        console.log("Requisição enviada e recebida com sucesso!");
+        console.log(response);
+      })
+      .catch(function(error) {
+        var toast = $mdToast.simple()
+          .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+          .position('top right')
+          .action('OK')
+          .hideDelay(6000);
+        $mdToast.show(toast);
+      });
   }
 }
 
@@ -62,14 +72,24 @@ var alunoFactory = function($http) {
 app.factory("alunoApi", alunoFactory);
 
 //Campus.html
-var campusController = function($scope, campusApi){
+var campusController = function($scope, $mdToast, campusApi){
   $scope.campus = {};
   let campus = $scope.campus;
 
   $scope.cadastrar = function(){
     campusApi.cadastrar(campus)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
@@ -107,14 +127,24 @@ var campusFactory = function($http) {
 app.factory("campusApi", campusFactory);
 
 //Curso.html
-var cursoController = function($scope, cursoApi){
+var cursoController = function($scope, $mdToast, cursoApi){
   $scope.curso = {};
   let curso = $scope.curso;
 
   $scope.cadastrar = function(){
     cursoApi.cadastrar(curso)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
@@ -152,14 +182,24 @@ var cursoFactory = function($http) {
 app.factory("cursoApi", cursoFactory);
 
 //Disciplina.html
-var disciplinaController = function($scope, disciplinaApi){
+var disciplinaController = function($scope, $mdToast, disciplinaApi){
   $scope.disciplina = {};
   let disciplina = $scope.disciplina;
 
   $scope.cadastrar = function(){
     disciplinaApi.cadastrar(disciplina)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
@@ -197,14 +237,24 @@ var disciplinaFactory = function($http) {
 app.factory("disciplinaApi", disciplinaFactory);
 
 //Endereco.html
-var enderecoController = function($scope, enderecoApi){
+var enderecoController = function($scope, $mdToast, enderecoApi){
   $scope.endereco = {};
   let endereco = $scope.endereco;
 
   $scope.cadastrar = function(){
     enderecoApi.cadastrar(endereco)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
@@ -242,14 +292,24 @@ var enderecoFactory = function($http) {
 app.factory("enderecoApi", enderecoFactory);
 
 //Escola.html
-var escolaController = function($scope, escolaApi){
+var escolaController = function($scope, $mdToast, escolaApi){
   $scope.escola = {};
   let escola = $scope.escola;
 
   $scope.cadastrar = function(){
     escolaApi.cadastrar(escola)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
@@ -287,14 +347,24 @@ var escolaFactory = function($http) {
 app.factory("escolaApi", escolaFactory);
 
 //Professor.html
-var professorController = function($scope, professorApi){
+var professorController = function($scope, $mdToast, professorApi){
   $scope.professor = {};
   let professor = $scope.professor;
 
   $scope.cadastrar = function(){
     professorApi.cadastrar(professor)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
@@ -332,14 +402,24 @@ var professorFactory = function($http) {
 app.factory("professorApi", professorFactory);
 
 //Turma.html
-var turmaController = function($scope, turmaApi){
+var turmaController = function($scope, $mdToast, turmaApi){
   $scope.turma = {};
   let turma = $scope.turma;
 
   $scope.cadastrar = function(){
     turmaApi.cadastrar(turma)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
@@ -377,14 +457,24 @@ var turmaFactory = function($http) {
 app.factory("turmaApi", turmaFactory);
 
 //Turno.html
-var turnoController = function($scope, turnoApi){
+var turnoController = function($scope, $mdToast, turnoApi){
   $scope.turno = {};
   let turno = $scope.turno;
 
   $scope.cadastrar = function(){
     turnoApi.cadastrar(turno)
-      .then(function(response) {})
-      .catch(function(error) {});
+    .then(function(response) {
+      console.log("Requisição enviada e recebida com sucesso!");
+      console.log(response);
+    })
+    .catch(function(error) {
+      var toast = $mdToast.simple()
+        .textContent('Algum problema ocorreu no envio dos dados :c tururuuu...')
+        .position('top right')
+        .action('OK')
+        .hideDelay(6000);
+      $mdToast.show(toast);
+    });
   }
 }
 
