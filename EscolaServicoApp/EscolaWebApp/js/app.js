@@ -22,10 +22,21 @@ var alunoController = function($scope, $mdToast, alunoApi){
   let aluno = $scope.aluno;
 
   $scope.cadastrar = function(){
+    var data= moment(aluno.nascimento, "DD/MM/YYYY");
+    aluno.nascimento = data.format("YYYY-MM-DD");
+
     alunoApi.cadastrar(aluno)
       .then(function(response) {
-        console.log("Requisição enviada e recebida com sucesso!");
-        console.log(response);
+        var toast = $mdToast.simple()
+          .textContent('O aluno foi cadastrado com sucesso =D')
+          .position('top right')
+          .action('OK')
+          .hideDelay(6000);
+        $mdToast.show(toast);
+
+        delete $scope.aluno;
+        $scope.aluno = {};
+        $scope.alunoform.$setPristine();
       })
       .catch(function(error) {
         var toast = $mdToast.simple()
