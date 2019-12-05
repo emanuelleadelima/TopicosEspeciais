@@ -1,5 +1,5 @@
 //Aluno.html
-var alunoController = function($scope, $mdToast, alunoApi){
+var alunoController = function($scope, $mdToast, $state, alunoApi){
 
   $scope.aluno = {};
 
@@ -18,9 +18,7 @@ var alunoController = function($scope, $mdToast, alunoApi){
           .hideDelay(6000);
         $mdToast.show(toast);
 
-        delete $scope.aluno;
-        $scope.aluno = {};
-        $scope.alunoform.$setPristine();
+        limparFormulario();
       })
       .catch(function(error) {
         var toast = $mdToast.simple()
@@ -42,7 +40,7 @@ var alunoController = function($scope, $mdToast, alunoApi){
         $scope.alunoForm.$setPristine();
         $scope.alunoForm.$setUntouched();
         $scope.alunoForm.$setValidity();
-    }
+  };
 }
 
 app.controller('AlunoController', alunoController);
