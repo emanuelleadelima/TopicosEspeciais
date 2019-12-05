@@ -1,0 +1,23 @@
+<form class="formulario" action="http://localhost:5000/endereco" method="POST" name="enderecoform" ng-required="true">
+  <div class="form-group">
+    <label for="nome">Logradouro: </label>
+    <input type="text" class="form-control" name="logradouro" ng-model="endereco.logradouro" placeholder="Logradouro" ng-required="true" ng-minlength="10"/>
+
+    <!-- ng-messages | campo logradouro | 1st -->
+    <div ng-messages="enderecoform.logradouro.$error" ng-if='enderecoform.logradouro.$dirty'>
+      <div ng-message="required" class="alert alert-danger">
+        Por favor, preencha o campo logradouro!
+      </div>
+      <div ng-message="minlength" class="alert alert-info">
+        O campo nome deve ter no mínimo 10 caracteres.
+      </div>
+    </div>
+
+    <!-- Botões -->
+    <button type='reset' name='limpar' class="btn btn-secondary btn-lg btn-block">
+      Limpar
+    </button>
+    <button ng-click="cadastrar()" class="btn btn-dark btn-lg btn-block">
+      Listar
+    </button>
+  </form>

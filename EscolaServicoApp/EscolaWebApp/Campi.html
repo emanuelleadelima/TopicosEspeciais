@@ -1,0 +1,24 @@
+<form name="campusform">
+  <div class="form-group">
+    <label for="sigla">Sigla: </label>
+    <input type="text" class="form-control" name="sigla" ng-model="campus.sigla" placeholder="Sigla" ng-required="true" ng-minlength="3">
+
+    <!-- ng-messages | campo sigla | 1st -->
+    <div ng-messages="campusform.sigla.$error" ng-if='campusform.sigla.$dirty'>
+      <div ng-message="required" class="alert alert-danger">
+        Por favor, preencha o campo sigla!
+      </div>
+      <div ng-message="minlength" class="alert alert-info">
+        O campo nome deve ter 3 caracteres. Exemplo: GBA.
+      </div>
+    </div>
+  </div>
+
+  <!-- Botões -->
+  <button type='reset' name='limpar' class="btn btn-secondary btn-lg btn-block">
+    Limpar
+  </button>
+  <button ng-click="cadastrar()" class="btn btn-dark btn-lg btn-block">
+    Listar
+  </button>
+</form>

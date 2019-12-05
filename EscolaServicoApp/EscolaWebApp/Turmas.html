@@ -1,0 +1,24 @@
+<form class="formulario" action="http://localhost:5000/turma" method="POST" name="turmaform">
+  <div class="form-group">
+    <label for="nome">Nome da Turma: </label>
+    <input type="text" class="form-control" name="nome" ng-model="turma.nome" placeholder="Nome" ng-required="true" ng-minlength="5"/>
+
+    <!-- ng-messages | campo nome | 1st -->
+    <div ng-messages="turmaform.nome.$error" ng-if='turmaform.nome.$dirty'>
+			<div ng-message="required" class="alert alert-danger">
+				Por favor, preencha o campo nome!
+			</div>
+			<div ng-message="minlength" class="alert alert-info">
+				O campo nome deve ter no mínimo 5 caracteres.
+			</div>
+		</div>
+  </div>
+
+  <!-- Botões -->
+  <button type='reset' name='limpar' class="btn btn-secondary btn-lg btn-block">
+    Limpar
+  </button>
+  <button ng-click="cadastrar()" class="btn btn-dark btn-lg btn-block">
+    Listar
+  </button>
+</form>
