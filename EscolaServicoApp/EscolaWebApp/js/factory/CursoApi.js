@@ -2,7 +2,7 @@
 // Curso - Factory
 var cursoFactory = function($http) {
 
-  var baseUrl = "localhost:5000";
+  var baseUrl = "http://127.0.0.1:5000";
 
   var _listar = function() {
     return $http.get(_baseUrl+ "/cursos")
