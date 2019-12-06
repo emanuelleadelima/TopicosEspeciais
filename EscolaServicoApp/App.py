@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_json_schema import JsonSchema, JsonValidationError
+from flask_cors import CORS
 import sqlite3
 import logging
 
@@ -24,7 +25,7 @@ endereco_schema = {
         'complemento': {'type': 'string'},
         'bairro': {'type': 'string'},
         'cep': {'type': 'string'},
-        'numero': {'type': 'integer'}
+        'numero': {'type': 'string'}
     }
 }
 
@@ -32,8 +33,8 @@ escola_schema = {
     'required': ['nome', 'id_endereco', 'id_campus'],
     'properties': {
         'nome': {'type': 'string'},
-        'id_endereco': {'type': 'integer'},
-        'id_campus': {'type': 'integer'}
+        'id_endereco': {'type': 'string'},
+        'id_campus': {'type': 'string'}
     }
 }
 
@@ -44,8 +45,8 @@ aluno_schema = {
         'matricula': {'type': 'string'},
         'cpf': {'type': 'string'},
         'nascimento': {'type': 'string'},
-        'id_endereco': {'type': 'integer'},
-        'id_curso': {'type': 'integer'}
+        'id_endereco': {'type': 'string'},
+        'id_curso': {'type': 'string'}
     }
 }
 
@@ -53,7 +54,7 @@ professor_schema = {
     'required': ['nome', 'id_endereco'],
     'properties': {
         'nome': {'type': 'string'},
-        'id_endereco': {'type': 'integer'}
+        'id_endereco': {'type': 'string'}
     }
 }
 
@@ -61,15 +62,15 @@ disciplina_schema = {
     'required': ['nome', 'id_professor'],
     'properties': {
         'nome': {'type': 'string'},
-        'id_professor': {'type': 'integer'}
+        'id_professor': {'type': 'string'}
     }
 }
 
 curso_schema = {
-    'required': ['nome','fk_id_turno'],
+    'required': ['nome','id_turno'],
     'properties': {
         'nome': {'type': 'string'},
-        'id_turno': {'type': 'integer'}
+        'id_turno': {'type': 'string'}
     }
 }
 
@@ -82,10 +83,10 @@ campus_schema = {
 }
 
 turma_schema = {
-    'required': ['nome','fk_id_curso'],
+    'required': ['nome','id_curso'],
     'properties': {
         'nome': {'type': 'string'},
-        'id_curso': {'type': 'integer'}
+        'id_curso': {'type': 'string'}
     }
 }
 
@@ -196,7 +197,7 @@ def setEndereco():
     finally:
         if conn:
             conn.close()
-            
+
     logger.info("Endereço cadastrado com sucesso.")
 
     return jsonify(endereco)
@@ -997,7 +998,7 @@ def updateCurso(id):
                 """, (nome, id_turno, id))
             conn.commit()
         else:
-           cursor.execute("""
+            cursor.execute("""
                 INSERT INTO tb_curso(nome, id_turno)
                 VALUES(?, ?);
             """, (nome, id_turno))
@@ -1247,7 +1248,7 @@ def setTurma():
         cursor.execute("""
             INSERT INTO tb_turma(nome, id_curso)
             VALUES(?, ?);
-        """, (nome, fk_id_curso))
+        """, (nome, id_curso))
 
         conn.commit()
         conn.close()
@@ -1468,6 +1469,8 @@ def updateTurno(id):
 @app.errorhandler(JsonValidationError)
 def validation_error(e):
     return jsonify({ 'error': e.message, 'errors': [validation_error.message for validation_error  in e.errors]})
+
+cors = CORS(app, resources={r"/*": {"origins": "*"}})
 
 if(__name__ == '__main__'):
     app.run(host='0.0.0.0', debug=True, use_reloader=True)
