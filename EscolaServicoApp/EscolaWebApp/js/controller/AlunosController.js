@@ -1,20 +1,21 @@
-var alunosController = function($scope, $mdToast, AlunoApi) {
+var alunosController = function($scope, $mdToast, alunoApi) {
 
   $scope.alunos = [];
 
-  let listar = function() {
-      AlunoApi.listar(nome)
-        .then(function(response) {
-          $scope.alunos = response.data;
-        })
-        .catch(function(error) {
+  $scope.listar = function() {
+    console.log("Listando")
+    alunoApi.listar()
+      .then(function(response) {
+        $scope.alunos = response.data;
+      })
+      .catch(function(error) {
 
-        });
+      });
   };
 
   $scope.pesquisar = function(nome) {
     if (nome.length >= 3) {
-      AlunoApi.buscarPorNome(nome)
+      alunoApi.buscarPorNome(nome)
         .then(function(response) {
           $scope.alunos = response.data;
         })
@@ -26,7 +27,7 @@ var alunosController = function($scope, $mdToast, AlunoApi) {
 
   $scope.limparBusca = function() {
     $scope.nome = "";
-    $scope.apresentacoes = [];
+    $scope.alunos = [];
   };
 
 }

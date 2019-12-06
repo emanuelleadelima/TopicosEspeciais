@@ -2,14 +2,15 @@ var turmasController = function($scope, $mdToast, TurmaApi) {
 
   $scope.turmas = [];
 
-  let listar = function() {
-      TurmaApi.listar(nome)
-        .then(function(response) {
-          $scope.turmas = response.data;
-        })
-        .catch(function(error) {
+  $scope.listar = function() {
+    console.log("Listando")
+    TurmaApi.listar()
+      .then(function(response) {
+        $scope.turmas = response.data;
+      })
+      .catch(function(error) {
 
-        });
+      });
   };
 
   $scope.pesquisar = function(nome) {
@@ -26,7 +27,7 @@ var turmasController = function($scope, $mdToast, TurmaApi) {
 
   $scope.limparBusca = function() {
     $scope.nome = "";
-    $scope.apresentacoes = [];
+    $scope.turmas = [];
   };
 
 }

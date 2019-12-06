@@ -2,14 +2,15 @@ var turnosController = function($scope, $mdToast, TurnoApi) {
 
   $scope.turnos = [];
 
-  let listar = function() {
-      TurnoApi.listar(nome)
-        .then(function(response) {
-          $scope.turnos = response.data;
-        })
-        .catch(function(error) {
+  $scope.listar = function() {
+    console.log("Listando")
+    TurnoApi.listar()
+      .then(function(response) {
+        $scope.turnos = response.data;
+      })
+      .catch(function(error) {
 
-        });
+      });
   };
 
   $scope.pesquisar = function(nome) {
@@ -26,7 +27,7 @@ var turnosController = function($scope, $mdToast, TurnoApi) {
 
   $scope.limparBusca = function() {
     $scope.nome = "";
-    $scope.apresentacoes = [];
+    $scope.turnos = [];
   };
 
 }

@@ -2,14 +2,15 @@ var escolasController = function($scope, $mdToast, EscolaApi) {
 
   $scope.escolas = [];
 
-  let listar = function() {
-      EscolaApi.listar(nome)
-        .then(function(response) {
-          $scope.escolas = response.data;
-        })
-        .catch(function(error) {
+  $scope.listar = function() {
+    console.log("Listando")
+    EscolaApi.listar()
+      .then(function(response) {
+        $scope.escolas = response.data;
+      })
+      .catch(function(error) {
 
-        });
+      });
   };
 
   $scope.pesquisar = function(nome) {
@@ -26,7 +27,7 @@ var escolasController = function($scope, $mdToast, EscolaApi) {
 
   $scope.limparBusca = function() {
     $scope.nome = "";
-    $scope.apresentacoes = [];
+    $scope.escolas = [];
   };
 
 }
