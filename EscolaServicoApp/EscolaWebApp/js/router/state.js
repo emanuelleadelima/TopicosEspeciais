@@ -30,7 +30,7 @@ app.config(function($stateProvider, $urlRouterProvider, $httpProvider) {
       .state('campus', {
         url: '/campus',
         title: 'EscolaApp - Cadastrar Campus',
-        templateUrl: 'campus.html',
+        templateUrl: 'Campus.html',
         controller: 'CampusController'
       })
       .state('campi', {
