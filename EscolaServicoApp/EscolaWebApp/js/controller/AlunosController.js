@@ -9,7 +9,12 @@ var alunosController = function($scope, $mdToast, alunoApi) {
         $scope.alunos = response.data;
       })
       .catch(function(error) {
-
+        var toast = $mdToast.simple()
+          .textContent('Não foi possível listar os alunos!')
+          .position('top right')
+          .action('OK')
+          .hideDelay(6000);
+        $mdToast.show(toast);
       });
   };
 

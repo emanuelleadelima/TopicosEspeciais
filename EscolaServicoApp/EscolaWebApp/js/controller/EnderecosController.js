@@ -1,10 +1,10 @@
-var enderecosController = function($scope, $mdToast, EnderecosApi) {
+var enderecosController = function($scope, $mdToast, enderecoApi) {
 
   $scope.enderecos = [];
 
   $scope.listar = function() {
     console.log("Listando")
-    EnderecosApi.listar()
+    enderecoApi.listar()
       .then(function(response) {
         $scope.enderecos = response.data;
       })
@@ -15,7 +15,7 @@ var enderecosController = function($scope, $mdToast, EnderecosApi) {
 
   $scope.pesquisar = function(nome) {
     if (nome.length >= 3) {
-      EnderecoApi.buscarPorNome(nome)
+      enderecoApi.buscarPorNome(nome)
         .then(function(response) {
           $scope.enderecos = response.data;
         })

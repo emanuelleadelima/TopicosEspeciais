@@ -1,10 +1,10 @@
-var turnosController = function($scope, $mdToast, TurnoApi) {
+var turnosController = function($scope, $mdToast, turnoApi) {
 
   $scope.turnos = [];
 
   $scope.listar = function() {
     console.log("Listando")
-    TurnoApi.listar()
+    turnoApi.listar()
       .then(function(response) {
         $scope.turnos = response.data;
       })
@@ -15,7 +15,7 @@ var turnosController = function($scope, $mdToast, TurnoApi) {
 
   $scope.pesquisar = function(nome) {
     if (nome.length >= 3) {
-      TurnoApi.buscarPorNome(nome)
+      turnoApi.buscarPorNome(nome)
         .then(function(response) {
           $scope.turnos = response.data;
         })

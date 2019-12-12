@@ -1,10 +1,10 @@
-var disciplinasController = function($scope, $mdToast, DisciplinaApi) {
+var disciplinasController = function($scope, $mdToast, disciplinaApi) {
 
   $scope.disciplinas = [];
 
   $scope.listar = function() {
     console.log("Listando")
-    DisciplinaApi.listar()
+    disciplinaApi.listar()
       .then(function(response) {
         $scope.disciplinas = response.data;
       })
@@ -15,7 +15,7 @@ var disciplinasController = function($scope, $mdToast, DisciplinaApi) {
 
   $scope.pesquisar = function(nome) {
     if (nome.length >= 3) {
-      DisciplinaApi.buscarPorNome(nome)
+      disciplinaApi.buscarPorNome(nome)
         .then(function(response) {
           $scope.disciplinas = response.data;
         })

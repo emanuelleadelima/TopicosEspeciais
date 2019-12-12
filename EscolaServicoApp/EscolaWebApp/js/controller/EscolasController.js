@@ -1,10 +1,10 @@
-var escolasController = function($scope, $mdToast, EscolaApi) {
+var escolasController = function($scope, $mdToast, escolaApi) {
 
   $scope.escolas = [];
 
   $scope.listar = function() {
     console.log("Listando")
-    EscolaApi.listar()
+    escolaApi.listar()
       .then(function(response) {
         $scope.escolas = response.data;
       })
@@ -15,7 +15,7 @@ var escolasController = function($scope, $mdToast, EscolaApi) {
 
   $scope.pesquisar = function(nome) {
     if (nome.length >= 3) {
-      EscolaApi.buscarPorNome(nome)
+      escolaApi.buscarPorNome(nome)
         .then(function(response) {
           $scope.escolas = response.data;
         })

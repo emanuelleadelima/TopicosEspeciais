@@ -1,10 +1,10 @@
-var turmasController = function($scope, $mdToast, TurmaApi) {
+var turmasController = function($scope, $mdToast, turmaApi) {
 
   $scope.turmas = [];
 
   $scope.listar = function() {
     console.log("Listando")
-    TurmaApi.listar()
+    turmaApi.listar()
       .then(function(response) {
         $scope.turmas = response.data;
       })
@@ -15,7 +15,7 @@ var turmasController = function($scope, $mdToast, TurmaApi) {
 
   $scope.pesquisar = function(nome) {
     if (nome.length >= 3) {
-      TurmaApi.buscarPorNome(nome)
+      turmaApi.buscarPorNome(nome)
         .then(function(response) {
           $scope.turmas = response.data;
         })
