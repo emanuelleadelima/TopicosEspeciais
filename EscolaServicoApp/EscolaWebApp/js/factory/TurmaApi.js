@@ -4,11 +4,11 @@ var turmaFactory = function($http) {
   var baseUrl = "http://127.0.0.1:5000";
 
   var _listar = function() {
-    return $http.get(_baseUrl+ "/turmas")
+    return $http.get(baseUrl+ "/turmas")
   };
 
   var _buscarPorId = function(id) {
-    return $http.get(_baseUrl+ "/turmas/" + encodeURI(id))
+    return $http.get(baseUrl+ "/turmas/" + encodeURI(id))
   };
 
   var _cadastrar = function(turma) {

@@ -4,11 +4,11 @@ var professorFactory = function($http) {
   var baseUrl = "http://127.0.0.1:5000";
 
   var _listar = function() {
-    return $http.get(_baseUrl+ "/professores")
+    return $http.get(baseUrl+ "/professores")
   };
 
   var _buscarPorId = function(id) {
-    return $http.get(_baseUrl+ "/professores/" + encodeURI(id))
+    return $http.get(baseUrl+ "/professores/" + encodeURI(id))
   };
 
   var _cadastrar = function(professor) {

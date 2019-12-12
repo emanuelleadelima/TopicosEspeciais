@@ -4,11 +4,11 @@ var alunoFactory = function($http) {
   var baseUrl = "http://127.0.0.1:5000";
 
   var _listar = function() {
-    return $http.get(_baseUrl+ "/alunos")
+    return $http.get(baseUrl+ "/alunos")
   };
 
   var _buscarPorId = function(id) {
-    return $http.get(_baseUrl+ "/alunos/" + encodeURI(id))
+    return $http.get(baseUrl+ "/alunos/" + encodeURI(id))
   };
 
   var _cadastrar = function(aluno) {

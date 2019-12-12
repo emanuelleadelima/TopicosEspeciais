@@ -4,11 +4,11 @@ var disciplinaFactory = function($http) {
   var baseUrl = "http://127.0.0.1:5000";
 
   var _listar = function() {
-    return $http.get(_baseUrl+ "/disciplinas")
+    return $http.get(baseUrl+ "/disciplinas")
   };
 
   var _buscarPorId = function(id) {
-    return $http.get(_baseUrl+ "/disciplinas/" + encodeURI(id))
+    return $http.get(baseUrl+ "/disciplinas/" + encodeURI(id))
   };
 
   var _cadastrar = function(disciplina) {

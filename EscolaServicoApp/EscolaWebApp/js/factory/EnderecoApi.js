@@ -4,11 +4,11 @@ var enderecoFactory = function($http) {
   var baseUrl = "http://127.0.0.1:5000";
 
   var _listar = function() {
-    return $http.get(_baseUrl+ "/enderecos")
+    return $http.get(baseUrl+ "/enderecos")
   };
 
   var _buscarPorId = function(id) {
-    return $http.get(_baseUrl+ "/enderecos/" + encodeURI(id))
+    return $http.get(baseUrl+ "/enderecos/" + encodeURI(id))
   };
 
   var _cadastrar = function(endereco) {

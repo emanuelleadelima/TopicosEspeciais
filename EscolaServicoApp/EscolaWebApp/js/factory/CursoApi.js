@@ -5,11 +5,11 @@ var cursoFactory = function($http) {
   var baseUrl = "http://127.0.0.1:5000";
 
   var _listar = function() {
-    return $http.get(_baseUrl+ "/cursos")
+    return $http.get(baseUrl+ "/cursos")
   };
 
   var _buscarPorId = function(id) {
-    return $http.get(_baseUrl+ "/cursos/" + encodeURI(id))
+    return $http.get(baseUrl+ "/cursos/" + encodeURI(id))
   };
 
   var _cadastrar = function(curso) {
