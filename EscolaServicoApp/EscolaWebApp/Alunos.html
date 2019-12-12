@@ -1,10 +1,10 @@
-<form class="formulario" name="alunoform">
+<form class="formulario" name="alunosform">
   <div class="form-group">
     <label for="nome">Nome: </label>
-    <input type="text" class="form-control" name="nome" ng-model="aluno.nome" placeholder="Nome" ng-required="true" ng-minlength="10"/>
+    <input type="text" class="form-control" name="nome" ng-model="aluno.nome" placeholder="Nome" ng-minlength="10"/>
 
     <!-- ng-messages | campo nome | 1st -->
-    <div ng-messages="alunoform.nome.$error" ng-if='alunoform.nome.$dirty'>
+    <div ng-messages="alunosform.nome.$error" ng-if='alunosform.nome.$dirty'>
 			<div ng-message="required" class="alert alert-danger">
 				Por favor, preencha o campo nome!
 			</div>
@@ -18,7 +18,7 @@
   <button type='reset' name='limpar' class="btn btn-secondary btn-lg btn-block">
     Limpar
   </button>
-  <button ng-click="cadastrar()" class="btn btn-dark btn-lg btn-block">
+  <button ng-click="listar()" class="btn btn-dark btn-lg btn-block">
     Listar
   </button>
 </form>
